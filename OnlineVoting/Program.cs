@@ -7,6 +7,7 @@ namespace OnlineVoting
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            Console.WriteLine("This is additional line in test branch! (feature)!");
         }
     }
 }
