@@ -11,12 +11,12 @@ namespace OnlineVoting
         private String ime { get; set; }
         private String prezime { get; set; }
         private String adresa { get; set; }
-        private DateTime datumRodjenja { get; set; }
+        private String datumRodjenja { get; set; }
         private String brojLicneKarte { get; set; }
         private long maticniBroj { get; set; }
         private String JIK { get; }
 
-        public Osoba (string ime, string prezime, string adresa, DateTime datumRodjenja, string brojLicneKarte, long maticniBroj)
+        public Osoba (string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {
             this.ime = ime;
             this.prezime = prezime;
@@ -27,14 +27,17 @@ namespace OnlineVoting
             this.JIK = generisiJIK(this.ime, this.prezime, this.adresa, this.datumRodjenja,this.brojLicneKarte,this.maticniBroj);
         }
 
-        private String generisiJIK(String ime, String prezime, String adresa, DateTime datumRodjenja, String brojLicneKarte, long maticniBroj)
+        private String generisiJIK(String ime, String prezime, String adresa, String datumRodjenja, String brojLicneKarte, long maticniBroj)
         {
             String jik = "";
-            jik = ime.Substring(0,2) + prezime.Substring(0,2) + adresa.Substring(0,2) + datumRodjenja.ToString("dd.MM.yyyy").Substring(0,2) + 
+            jik = ime.Substring(0,2) + prezime.Substring(0,2) + adresa.Substring(0,2) + datumRodjenja.Substring(0,2) + 
                 brojLicneKarte.Substring(0,2) + maticniBroj.ToString().Substring(0,2);
             return jik;
         }
 
-
+        public String dajJIK()  // samo JIK-u mogu sa vana pristupiti
+        {
+            return this.JIK;
+        }
     }
 }
