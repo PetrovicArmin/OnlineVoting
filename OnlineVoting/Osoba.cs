@@ -8,13 +8,13 @@ namespace OnlineVoting
 {
     public class Osoba
     {
-        private String ime { get; set; }
-        private String prezime { get; set; }
-        private String adresa { get; set; }
-        private String datumRodjenja { get; set; }
-        private String brojLicneKarte { get; set; }
-        private long maticniBroj { get; set; }
-        private String JIK { get; }
+        protected String ime { get; set; }
+        protected String prezime { get; set; }
+        protected String adresa { get; set; }
+        protected String datumRodjenja { get; set; }
+        protected String brojLicneKarte { get; set; }
+        protected long maticniBroj { get; set; }
+        protected String JIK { get; }
 
         public Osoba (string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {
