@@ -10,9 +10,10 @@ namespace OnlineVoting
     {
         private String imeIPrezime { get; set; }
         private String adresa { get; set; }
-        private DateTime datumRodjenj { get; set; }
+        private DateTime datumRodjenja { get; set; }
         private String brojLicneKarte { get; set; }
         private long maticniBroj { get; set; }
+        private String JIK { get; set; }
 
     }
 }
