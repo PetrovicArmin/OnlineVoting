@@ -14,7 +14,7 @@ namespace OnlineVoting
         protected String datumRodjenja { get; set; }
         protected String brojLicneKarte { get; set; }
         protected long maticniBroj { get; set; }
-        protected String JIK { get; }
+        protected String JIK { get; set; }
 
         public Osoba (string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {

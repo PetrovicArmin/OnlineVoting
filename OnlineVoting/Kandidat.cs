@@ -12,15 +12,15 @@ namespace OnlineVoting
         {
         }
 
-        public string DetaljneInformacije()
+        public String DetaljneInformacije()
         {
-            String detaljneInformacije = "";
+            String detaljneInformacije = "Detaljne informacije: \n"+"Adresa: " + this.adresa + "\nBroj lične karte:  " + this.brojLicneKarte + "\nMatični broj:  " + maticniBroj.ToString();
             return detaljneInformacije;
         }
 
-        public string OsnovneInformacije()
+        public String OsnovneInformacije()
         {
-            String osnovneInformacije = "";
+            String osnovneInformacije = "Osnovne informacije: \n"+ "Ime: " + this.ime + "\nPrezime: " + this.prezime + "\nDatum rođenja: " + this.datumRodjenja;
             return osnovneInformacije;
         }
     }
