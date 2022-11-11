@@ -35,7 +35,7 @@ namespace OnlineVoting
             return jik;
         }
 
-        public String dajJIK()  // samo JIK-u mogu sa vana pristupiti
+        public String dajJIK()  // samo JIK-u mogu sa vana pristupiti oni koji verifikuju glasove (treca recenica zahtjeva u zadaci)
         {
             return this.JIK;
         }
