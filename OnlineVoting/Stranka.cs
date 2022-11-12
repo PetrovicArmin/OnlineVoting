@@ -4,15 +4,15 @@ namespace OnlineVoting
 {
     internal class Stranka
     {
-        private List<string> clanovi { get; set; }
-        public Stranka(List<string> clanovi)
+        private List<Kandidat> clanovi { get; set; }
+        public Stranka(List<Kandidat> clanovi)
         {
             this.clanovi = clanovi;
         }
 
-        public void dodajClana(string clan)
+        public void dodajClana(Kandidat noviClan)
         {
-            clanovi.Add(clan);
+            clanovi.Add(noviClan);
         }
     }
 }
