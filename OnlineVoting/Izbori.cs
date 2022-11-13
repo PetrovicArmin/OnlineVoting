@@ -8,8 +8,8 @@ namespace OnlineVoting
 {
     internal class Izbori
     {
-        static List<Stranka> stranke = new List<Stranka>();
-        static List<Kandidat> kandidati = new List<Kandidat>();
+        public static List<Stranka> stranke = new List<Stranka>();
+        public static List<Kandidat> kandidati = new List<Kandidat>();
         static private Izbori singletonIzbori = null;
 
         private Izbori()
