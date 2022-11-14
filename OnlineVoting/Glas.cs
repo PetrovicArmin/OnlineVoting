@@ -1,31 +1,34 @@
-using System;
-
 namespace OnlineVoting
 {
     internal class Glas
     {
-        private Integer idStranke { get; set; }
-        private List<Integer> idKandidata { get; set; }
+        private int idStranke { get; set; }
+        private List<string> idKandidata { get; set; }
         private TipGlasa tipGlasa { get; set; }
-        public Glas(Integer stranka, List<Kandidat> kandidati)
+        public Glas(int stranka, List<Kandidat> kandidati)
         {
             this.idStranke = stranka;
-            this.idKandidata = kandidati;
+            this.idKandidata = kandidati.ConvertAll(
+             new Converter<Kandidat, string>(k => k.dajJIK())); ;
         }
 
-        public Integer VratiIDStranke()
+        public int VratiIDStranke()
         {
             return this.idStranke;
         }
-        public List<Kandidat> VratiIDKandidata()
+        public List<string> VratiIDKandidata()
         {
             return this.idKandidata;
         }
+        public TipGlasa VratiTipGlasa()
+        {
+            return this.tipGlasa;
+        }
         public void PostaviTipGlasa(TipGlasa tip)
         {
-            tipGlasa= tip;
+            tipGlasa = tip;
             return;
         }
-        
+
     }
 }
