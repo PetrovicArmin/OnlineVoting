@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using System;
+
 namespace OnlineVoting
 {
     internal class Glas

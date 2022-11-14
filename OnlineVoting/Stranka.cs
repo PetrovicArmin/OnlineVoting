@@ -4,6 +4,7 @@ namespace OnlineVoting
 {
     internal class Stranka
     {
+        private int id { get; set; }
         private List<Kandidat> clanovi { get; set; }
         public Stranka(List<Kandidat> clanovi)
         {
@@ -13,6 +14,16 @@ namespace OnlineVoting
         public void dodajClana(Kandidat noviClan)
         {
             clanovi.Add(noviClan);
+        }
+
+        public List<Kandidat> vratiClanove()
+        {
+            return clanovi;
+        }
+
+        public int vratiIdStranke()
+        {
+            return id;
         }
     }
 }

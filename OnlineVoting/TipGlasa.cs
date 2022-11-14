@@ -4,6 +4,7 @@
     {
         NEZAVISNI_KANDIDAT,
         SAMO_STRANKA,
-        STRANKA_KANDIDATI
+        STRANKA_KANDIDATI,
+        NEVAZECI
     }
 }
