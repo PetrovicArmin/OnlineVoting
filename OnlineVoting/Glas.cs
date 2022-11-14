@@ -20,6 +20,10 @@ namespace OnlineVoting
         {
             return this.idKandidata;
         }
+        public TipGlasa VratiTipGlasa()
+        {
+            return this.tipGlasa;
+        }
         public void PostaviTipGlasa(TipGlasa tip)
         {
             tipGlasa = tip;
