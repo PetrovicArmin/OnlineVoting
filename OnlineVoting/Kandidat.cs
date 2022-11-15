@@ -8,6 +8,7 @@ namespace OnlineVoting
 {
     public class Kandidat : Osoba, Informacije
     {
+        private int BrojGlasova { get; set; }   
         public Kandidat(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj) : base(ime, prezime, adresa, datumRodjenja, brojLicneKarte, maticniBroj)
         {
         }
@@ -22,6 +23,11 @@ namespace OnlineVoting
         {
             String osnovneInformacije = "Osnovne informacije: \n"+ "Ime: " + this.ime + "\nPrezime: " + this.prezime + "\nDatum rođenja: " + this.datumRodjenja;
             return osnovneInformacije;
+        }
+
+        public void DodajGlas()
+        {
+            BrojGlasova++;
         }
     }
 }
