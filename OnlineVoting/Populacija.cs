@@ -35,5 +35,10 @@ namespace OnlineVoting
         {
             return glasaci;
         }
+
+        public void DodajGlasaca(string jik)
+        {
+            glasaci.Add(jik);
+        }
     }
 }
