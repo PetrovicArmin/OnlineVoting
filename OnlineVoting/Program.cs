@@ -102,14 +102,19 @@ namespace OnlineVoting
                             Console.Write("Odaberite kandidate razdvojene (,): ");
                             string odabrani = Console.ReadLine();
                             var kandidati = odabrani.Split(',')?.Select(Int32.Parse)?.ToList();
-                            Console.WriteLine("Broj: " + kandidati.Count());
+                            //Console.WriteLine("Broj: " + kandidati.Count() + " - " + stranka.vratiClanove().Count());
                             List<Kandidat> sviKandidati = stranka.vratiClanove();
                             List<Kandidat> listaKandidata = new List<Kandidat>();
-                            for (int i = 0; i < odabrani.Count(); i++)
-                                listaKandidata.Add(stranka.vratiClanove()[i]);
+                            for (int i = 0; i < kandidati.Count(); i++)
+                            {
+                                listaKandidata.Add(stranka.vratiClanove()[kandidati[i]]);
+                            }
                             Glas g = new Glas(stranka.vratiIdStranke(), listaKandidata);
                             izbori.ProcesirajGlas(prekoJik(jik), g);
                         }
+                        var glasaci = pop.getGlasaci();
+                        glasaci.Add(jik);
+                        pop.setGlasaci(glasaci);
                         break;
                     case 5:
                         Console.WriteLine(izbori.TrenutnoStanje());
