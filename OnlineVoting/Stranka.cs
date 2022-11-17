@@ -8,21 +8,7 @@ namespace OnlineVoting
         private List<Kandidat> clanovi { get; set; }
         private int BrojGlasova { get; set; }
 
-<<<<<<< HEAD
-        public int GetBrojGlasova()
-        {
-            return BrojGlasova;
-        }
-
-        public void SetBrojGlasova(int brojGlasova)
-        {
-            BrojGlasova = brojGlasova;
-        }
-
-        public Stranka(List<Kandidat> clanovi)
-=======
         public Stranka(List<Kandidat> clanovi, int id)
->>>>>>> fda4d402cd6fcf299ea439524d9a2ca61a54aba4
         {
             this.clanovi = clanovi;
             this.id = id;
@@ -57,13 +43,10 @@ namespace OnlineVoting
                 clanovi.Find(clan => clan.dajJIK() == id).DodajGlas();
             });
         }
-<<<<<<< HEAD
-=======
 
         public int GetBrojGlasova()
         {
             return BrojGlasova;
         }
->>>>>>> fda4d402cd6fcf299ea439524d9a2ca61a54aba4
     }
 }
