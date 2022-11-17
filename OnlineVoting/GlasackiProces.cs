@@ -21,20 +21,15 @@ namespace OnlineVoting
 
         public bool IdentifikujGlasaca()
         {
-            //promijenite odakle ih ucitava, ne znam gdje ce se drzati spisak glasaca
-            List<string> glasaci = new List<string>();
+            List<string> glasaci = Populacija.DajPopulaciju().getGlasaci();
             if (glasaci.Contains(osoba.dajJIK()))   //ako je vec glasao, pada na ID fazi
                 return false;
             return true;
         }
 
-        public bool VerifikujGlas()
+        public TipGlasa VerifikujGlas()
         {
-            glas = TipizirajIVratiGlas();
-            if (glas.VratiTipGlasa() == TipGlasa.NEVAZECI)
-                return false;
-            return true;
-
+            return TipizirajIVratiGlas().VratiTipGlasa();
         }
 
         public Glas TipizirajIVratiGlas()
