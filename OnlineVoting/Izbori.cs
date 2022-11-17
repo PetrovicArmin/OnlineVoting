@@ -43,6 +43,7 @@ namespace OnlineVoting
 
             TipGlasa tipGlasa = glasackiProces.VerifikujGlas();
 
+            //ispravljeni if uvjeti u switch case
             switch(tipGlasa)
             {
                 case TipGlasa.NEVAZECI:
