@@ -43,9 +43,21 @@ namespace OnlineVoting
 
             TipGlasa tipGlasa = glasackiProces.VerifikujGlas();
 
-            //ispravljeni if uvjeti u switch case
-            
-
+            switch (tipGlasa)
+            {
+                case TipGlasa.NEVAZECI:
+                    nevazecihGlasova++;
+                    break;
+                case TipGlasa.SAMO_STRANKA: //po automatizmu prvog člana stranke dodajemo
+                    stranke.Find(s => s.vratiIdStranke() == glas.VratiIDStranke()).DodajGlas(new List<string>());
+                    break;
+                case TipGlasa.STRANKA_KANDIDATI:
+                    stranke.Find(s => s.vratiIdStranke() == glas.VratiIDStranke()).DodajGlas(glas.VratiIDKandidata());
+                    break;
+                case TipGlasa.NEZAVISNI_KANDIDAT:
+                    kandidati.Find(kandidat => kandidat.dajJIK() == glas.VratiIDKandidata()[0]).DodajGlas();
+                    break;
+            }
 
             return ukupnoGlasova;
         }
