@@ -68,6 +68,12 @@ namespace OnlineVoting
 
             int validnihGlasova = ukupnoGlasova - nevazecihGlasova;
 
+            if (validnihGlasova == 0)
+            {
+                povrat += "Ne postoje validni glasovi, pa nije moguće obaviti rangiranje stranki i kandidata!\n";
+                return povrat;
+            }
+
             List<Stranka> strankeSaMandatom = new List<Stranka> { };
             List<Kandidat> nezavisniKandidatiSaMandatom = new List<Kandidat> { };
 
