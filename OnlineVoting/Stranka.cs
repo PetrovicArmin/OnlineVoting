@@ -8,9 +8,10 @@ namespace OnlineVoting
         private List<Kandidat> clanovi { get; set; }
         private int BrojGlasova { get; set; }
 
-        public Stranka(List<Kandidat> clanovi)
+        public Stranka(List<Kandidat> clanovi, int id)
         {
             this.clanovi = clanovi;
+            this.id = id;
         }
 
         public void dodajClana(Kandidat noviClan)
@@ -41,6 +42,11 @@ namespace OnlineVoting
             {
                 clanovi.Find(clan => clan.dajJIK() == id).DodajGlas();
             });
+        }
+
+        public int GetBrojGlasova()
+        {
+            return BrojGlasova;
         }
     }
 }

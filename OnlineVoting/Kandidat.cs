@@ -29,5 +29,10 @@ namespace OnlineVoting
         {
             BrojGlasova++;
         }
+
+        public int VratiBrojGlasova()
+        {
+            return BrojGlasova;
+        }
     }
 }
