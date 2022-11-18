@@ -72,7 +72,14 @@ namespace OnlineVoting
                         });
                         break;
                     case 3:
-                        Console.WriteLine("Opcija 3");
+                        Console.WriteLine("Ispod su nabrojane stranke koje sudjeluju u izborima:");
+                        ispisStranaka();
+                        Console.WriteLine("Pored njih sudjeluju i nezavisni kandidati:");
+                        nezavisni.ForEach(delegate (Kandidat k)
+                            {
+                                Console.WriteLine(k.OsnovneInformacije());
+                            });
+
                         break;
                     case 4:
                         Console.WriteLine("JIK: ");
