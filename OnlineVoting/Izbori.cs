@@ -43,7 +43,7 @@ namespace OnlineVoting
 
             TipGlasa tipGlasa = glasackiProces.VerifikujGlas();
 
-            switch(tipGlasa)
+            switch (tipGlasa)
             {
                 case TipGlasa.NEVAZECI:
                     nevazecihGlasova++;
@@ -59,7 +59,6 @@ namespace OnlineVoting
                     break;
             }
 
-
             return ukupnoGlasova;
         }
 
@@ -68,6 +67,12 @@ namespace OnlineVoting
             string povrat = "Ukupno glasova: " + ukupnoGlasova + ", postotak nevažećih: " + ((nevazecihGlasova / ukupnoGlasova) * 100.0).ToString() + "% \n";
 
             int validnihGlasova = ukupnoGlasova - nevazecihGlasova;
+
+            if (validnihGlasova == 0)
+            {
+                povrat += "Ne postoje validni glasovi, pa nije moguće obaviti rangiranje stranki i kandidata!\n";
+                return povrat;
+            }
 
             List<Stranka> strankeSaMandatom = new List<Stranka> { };
             List<Kandidat> nezavisniKandidatiSaMandatom = new List<Kandidat> { };
