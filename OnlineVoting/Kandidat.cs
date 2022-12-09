@@ -36,19 +36,24 @@ namespace OnlineVoting
             return detaljneInformacije;
         }
 
+        //by: Petrović Armin 
+        Tuple<string, DateTime, DateTime> DajTrenutnuStranku()
+        {
+            for (int i = 0; i < clanstvoUStrankama.Count; i++)
+            {
+                var trenutniPodaci = clanstvoUStrankama.ElementAt(i);
+                if (trenutniPodaci.Value.Item2 == DateTime.MinValue)
+                    return new Tuple<string, DateTime, DateTime>(trenutniPodaci.Key, trenutniPodaci.Value.Item1, trenutniPodaci.Value.Item2);
+            }
+
+            return null;
+        }
+
         //by: Petrović Armin
         public void UclaniUStranku(String nazivStranke, DateTime datumUclanjenja)
         {
-            if (clanstvoUStrankama.ContainsKey(nazivStranke))
-            {
-                throw new ArgumentException("Kandidat je već prijavljen u stranku istog naziva!");
-            }
-            
-            for (int i = 0; i < clanstvoUStrankama.Count; i++)
-            {
-                if (clanstvoUStrankama.ElementAt(i).Value.Item2 == DateTime.MinValue)
-                    throw new DataException("Kandidat je već učlanjen u neku stranku!");
-            }
+            if (DajTrenutnuStranku() != null)
+                throw new ArgumentException("Kandidat je već učlanjen u neku stranku!");
 
             clanstvoUStrankama[nazivStranke] = new Tuple<DateTime, DateTime>(datumUclanjenja, DateTime.MinValue);
         }
@@ -56,16 +61,20 @@ namespace OnlineVoting
         //by: Petrović Armin
         public void OdjaviIzStranke(String nazivStranke, DateTime datumOdjave)
         {
-            if (clanstvoUStrankama.ContainsKey(nazivStranke))
-            {
-                DateTime datumUclanjenja = clanstvoUStrankama[nazivStranke].Item1;
-                if (datumOdjave < datumUclanjenja)
-                    throw new DataException("Kandidat ne može da se isčlani prije nego što se učlanio u stranku!");
-                clanstvoUStrankama[nazivStranke] = new Tuple<DateTime, DateTime>(datumUclanjenja, datumOdjave);
-            } else
-            {
-                throw new ArgumentException("Kandidat nije učlanjen u navedenu stranku, da bismo ga iz iste odjavili!");
-            }
+            Tuple<string, DateTime, DateTime> informacijeOTrenutnojStranki = DajTrenutnuStranku();
+
+            if (informacijeOTrenutnojStranki == null)
+                throw new ArgumentException("Kandidat nije učlanjen niti u jednu stranku!");
+
+            if (informacijeOTrenutnojStranki.Item1 != nazivStranke)
+                throw new ArgumentException("Kandidat je trenutno učlanjen u neku drugu stranku!");
+
+            DateTime datumUclanjenja = informacijeOTrenutnojStranki.Item2;
+
+            if (datumUclanjenja > datumOdjave)
+                throw new DataException("Kandidat ne može prije napraviti odjavu nego prijavu!");
+
+            clanstvoUStrankama[nazivStranke] = new Tuple<DateTime, DateTime>(datumUclanjenja, datumOdjave);
         }
 
         public String OsnovneInformacije()
