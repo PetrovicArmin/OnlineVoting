@@ -36,6 +36,7 @@ namespace OnlineVoting
             return detaljneInformacije;
         }
 
+        //by: Petrović Armin
         public void UclaniUStranku(String nazivStranke, DateTime datumUclanjenja)
         {
             if (clanstvoUStrankama.ContainsKey(nazivStranke))
@@ -52,11 +53,14 @@ namespace OnlineVoting
             clanstvoUStrankama[nazivStranke] = new Tuple<DateTime, DateTime>(datumUclanjenja, DateTime.MinValue);
         }
 
+        //by: Petrović Armin
         public void OdjaviIzStranke(String nazivStranke, DateTime datumOdjave)
         {
             if (clanstvoUStrankama.ContainsKey(nazivStranke))
             {
                 DateTime datumUclanjenja = clanstvoUStrankama[nazivStranke].Item1;
+                if (datumOdjave < datumUclanjenja)
+                    throw new DataException("Kandidat ne može da se isčlani prije nego što se učlanio u stranku!");
                 clanstvoUStrankama[nazivStranke] = new Tuple<DateTime, DateTime>(datumUclanjenja, datumOdjave);
             } else
             {
