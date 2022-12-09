@@ -19,9 +19,20 @@ namespace OnlineVoting
         //ažuriranje detaljnih informacija radi čuvanja stranki u kojima je bio kandidat: by Petrović Armin
         public String DetaljneInformacije()
         {
-
-            detaljneInformacije = "Detaljne informacije: \n" + "Adresa: " + this.adresa + "\nBroj lične karte:  " + this.brojLicneKarte + "\nMatični broj:  " + maticniBroj.ToString() + "\n";
-            //TODO: dodati iz dictionary-ja odgovarajuće rezultate!
+            //budući da se same informacije unutar clanstva mogu mijenjati, to se ovaj string mora generirati iznova i iznova!
+            detaljneInformacije = "Detaljne informacije: \n" + "Adresa: " + this.adresa + "\nBroj lične karte:  " + this.brojLicneKarte + "\nMatični broj:  " + maticniBroj.ToString() + ".\n";
+            detaljneInformacije += "Kandidat je bio: \n";
+            for (int i = 0; i < clanstvoUStrankama.Count; i++)
+            {
+                var element = clanstvoUStrankama.ElementAt(i);
+                String imeStranke = element.Key;
+                DateTime datumPrijave = element.Value.Item1;
+                DateTime datumOdjave = element.Value.Item2;
+                String datumOdjavePlaceholder = datumOdjave.ToString();
+                if (datumOdjave == DateTime.MinValue)
+                    datumOdjavePlaceholder = "DAN DANAS";
+                detaljneInformacije += "Član stranke '" + imeStranke + "' od '" + datumPrijave.ToString() + "' do '" + datumOdjavePlaceholder + "'\n"; 
+            }
             return detaljneInformacije;
         }
 
