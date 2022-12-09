@@ -35,8 +35,21 @@ namespace OnlineVoting
             return detaljneInformacije;
         }
 
+        //by: Petrović Armin
+        public DateTime DajNajkasnijuOdjavu()
+        {
+            DateTime najkasnijaOdjava = DateTime.MinValue;
+            for (int i = 0; i < clanstvoUStrankama.Count; i++)
+            {
+                if (clanstvoUStrankama.ElementAt(i).Value.Item2 > najkasnijaOdjava)
+                    najkasnijaOdjava = clanstvoUStrankama.ElementAt(i).Value.Item2;
+            }
+
+            return najkasnijaOdjava;
+        }
+
         //by: Petrović Armin 
-        Tuple<string, DateTime, DateTime> DajTrenutnuStranku()
+        public Tuple<string, DateTime, DateTime> DajTrenutnuStranku()
         {
             for (int i = 0; i < clanstvoUStrankama.Count; i++)
             {
@@ -53,6 +66,9 @@ namespace OnlineVoting
         {
             if (DajTrenutnuStranku() != null)
                 throw new ArgumentException("Kandidat je već učlanjen u neku stranku!");
+
+            if (datumUclanjenja < DajNajkasnijuOdjavu())
+                throw new ArgumentException("Datum učlanjenja mora biti kasniji od najkasnijeg datuma odjave!");
 
             clanstvoUStrankama[nazivStranke] = new Tuple<DateTime, DateTime>(datumUclanjenja, DateTime.MinValue);
         }
