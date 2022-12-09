@@ -41,10 +41,15 @@ namespace OnlineVoting
             if (clanstvoUStrankama.ContainsKey(nazivStranke))
             {
                 throw new ArgumentException("Kandidat je već prijavljen u stranku istog naziva!");
-            } else
-            {
-                clanstvoUStrankama[nazivStranke] = new Tuple<DateTime, DateTime>(datumUclanjenja, DateTime.MinValue);
             }
+            
+            for (int i = 0; i < clanstvoUStrankama.Count; i++)
+            {
+                if (clanstvoUStrankama.ElementAt(i).Value.Item2 == DateTime.MinValue)
+                    throw new DataException("Kandidat je već učlanjen u neku stranku!");
+            }
+
+            clanstvoUStrankama[nazivStranke] = new Tuple<DateTime, DateTime>(datumUclanjenja, DateTime.MinValue);
         }
 
         public void OdjaviIzStranke(String nazivStranke, DateTime datumOdjave)
