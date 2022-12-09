@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OnlineVoting
 {
-    internal class Stranka
+    public class Stranka
     {
         private int id { get; set; }
         private List<Kandidat> clanovi { get; set; }
