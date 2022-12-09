@@ -20,7 +20,7 @@
       "name": "@factorial/drupal-breakpoints-css",
       "description": "JSON Schema for @factorial/drupal-breakpoints-css config file",
       "fileMatch": ["breakpoints.config.yml"],
-      "url": "https://json.schemastore.org/factorial-drupal-breakpoints-css-0.1.0.json"
+      "url": "https://json.schemastore.org/factorial-drupal-breakpoints-css-0.2.0.json"
     },
     {
       "name": ".adonisrc.json",
@@ -408,6 +408,32 @@
         "datamodel.beef.yaml",
         "datamodel.beef.yml",
         "datamodel.beef.json"
+      ]
+    },
+    {
+      "name": "beef-database-v5-codegen",
+      "description": "Beef (Business Entity Execution Framework) database code-generation configuration (v5).",
+      "url": "https://raw.githubusercontent.com/Avanade/Beef/master/tools/Beef.CodeGen.Core/Schema/database.beef-5.json",
+      "fileMatch": [
+        "database.beef-5.yaml",
+        "database.beef-5.yml",
+        "database.beef-5.json"
+      ]
+    },
+    {
+      "name": "beef-entity-v5-codegen",
+      "description": "Beef (Business Entity Execution Framework) entity code-generation configuration (v5).",
+      "url": "https://raw.githubusercontent.com/Avanade/Beef/master/tools/Beef.CodeGen.Core/Schema/entity.beef-5.json",
+      "fileMatch": [
+        "entity.beef-5.yaml",
+        "entity.beef-5.yml",
+        "entity.beef-5.json",
+        "refdata.beef-5.yaml",
+        "refdata.beef-5.yml",
+        "refdata.beef-5.json",
+        "datamodel.beef-5.yaml",
+        "datamodel.beef-5.yml",
+        "datamodel.beef-5.json"
       ]
     },
     {
@@ -1225,12 +1251,13 @@
     {
       "name": "Devfile",
       "description": "JSON schema for Devfiles",
-      "url": "https://raw.githubusercontent.com/devfile/api/v2.1.0/schemas/latest/devfile.json",
+      "url": "https://raw.githubusercontent.com/devfile/api/v2.2.0/schemas/latest/devfile.json",
       "fileMatch": ["devfile.yaml", ".devfile.yaml"],
       "versions": {
         "1.0.0": "https://raw.githubusercontent.com/eclipse-che/che-server/master/wsmaster/che-core-api-workspace/src/main/resources/schema/1.0.0/devfile.json",
         "2.0.0": "https://raw.githubusercontent.com/devfile/api/v2.0.0/schemas/latest/devfile.json",
-        "2.1.0": "https://raw.githubusercontent.com/devfile/api/v2.1.0/schemas/latest/devfile.json"
+        "2.1.0": "https://raw.githubusercontent.com/devfile/api/v2.1.0/schemas/latest/devfile.json",
+        "2.2.0": "https://raw.githubusercontent.com/devfile/api/v2.2.0/schemas/latest/devfile.json"
       }
     },
     {
@@ -1387,7 +1414,8 @@
       "fileMatch": ["func.yaml"],
       "url": "https://raw.githubusercontent.com/knative/func/latest-release/schema/func_yaml-schema.json",
       "versions": {
-        "1.7": "https://raw.githubusercontent.com/knative/func/release-1.7/schema/func_yaml-schema.json"
+        "1.7": "https://raw.githubusercontent.com/knative/func/release-1.7/schema/func_yaml-schema.json",
+        "1.8": "https://raw.githubusercontent.com/knative/func/release-1.8/schema/func_yaml-schema.json"
       }
     },
     {
@@ -2888,6 +2916,12 @@
       "url": "https://raw.githubusercontent.com/stripe/stripe-apps/main/schema/stripe-app.schema.json"
     },
     {
+      "name": "stripe-app-local.json",
+      "description": "Stripe Apps local manifest file",
+      "fileMatch": ["stripe-app.*.json"],
+      "url": "https://raw.githubusercontent.com/stripe/stripe-apps/main/schema/stripe-app-local.schema.json"
+    },
+    {
       "name": "Stryker Mutator",
       "description": "Configuration file for Stryker Mutator, the mutation testing framework for JavaScript and friends. See https://stryker-mutator.io.",
       "fileMatch": ["stryker.conf.json", "stryker-*.conf.json"],
@@ -3371,6 +3405,12 @@
       "description": "JSON schema for lint-staged config",
       "fileMatch": [".lintstagedrc", ".lintstagedrc.json"],
       "url": "https://json.schemastore.org/lintstagedrc.schema.json"
+    },
+    {
+      "name": "mirrord-schema",
+      "description": "Schema for mirrord.",
+      "fileMatch": ["*.mirrord.+(toml|json|y?(a)ml)"],
+      "url": "https://raw.githubusercontent.com/metalbear-co/mirrord/main/mirrord-schema.json"
     },
     {
       "name": "mta.yaml",

@@ -29,7 +29,7 @@ namespace OnlineVoting
 
         private String generisiJIK(String ime, String prezime, String adresa, String datumRodjenja, String brojLicneKarte, long maticniBroj)
         {
-            String jik = " ";
+            String jik = "";
             jik = ime.Substring(0,2) + prezime.Substring(0,2) + adresa.Substring(0,2) + datumRodjenja.Substring(0,2) + 
                 brojLicneKarte.Substring(0,2) + maticniBroj.ToString().Substring(0,2);
             return jik;
