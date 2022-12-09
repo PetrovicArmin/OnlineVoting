@@ -24,7 +24,7 @@ namespace OnlineVoting
             this.datumRodjenja = datumRodjenja;
             this.brojLicneKarte = brojLicneKarte;
             this.maticniBroj = maticniBroj;
-            this.JIK = generisiJIK(this.ime, this.prezime, this.adresa, this.datumRodjenja,this.brojLicneKarte,this.maticniBroj);
+            JIK = generisiJIK(this.ime, this.prezime, this.adresa, this.datumRodjenja,this.brojLicneKarte,this.maticniBroj);
         }
 
         private String generisiJIK(String ime, String prezime, String adresa, String datumRodjenja, String brojLicneKarte, long maticniBroj)
