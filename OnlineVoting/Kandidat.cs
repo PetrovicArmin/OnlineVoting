@@ -21,7 +21,7 @@ namespace OnlineVoting
 
         public String OsnovneInformacije()
         {
-            String osnovneInformacije = "Osnovne informacije: \n"+ "Ime: " + this.ime + "\nPrezime: " + this.prezime + "\nDatum rođenja: " + this.datumRodjenja;
+            String osnovneInformacije = this.ime + " " + this.prezime;
             return osnovneInformacije;
         }
 

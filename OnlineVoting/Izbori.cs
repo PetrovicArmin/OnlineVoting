@@ -20,7 +20,7 @@ namespace OnlineVoting
         private Izbori()
         {
         }
-        
+
 
         static public Izbori DajIzbore()
         {
@@ -32,7 +32,7 @@ namespace OnlineVoting
         public int ProcesirajGlas(Osoba osoba, Glas glas)
         {
             GlasackiProces glasackiProces = new GlasackiProces(osoba, glas);
-            
+
             if (!glasackiProces.IdentifikujGlasaca())
             {
                 //već je glasao
@@ -79,16 +79,16 @@ namespace OnlineVoting
 
             stranke.ForEach(stranka =>
             {
-                double postotak = (stranka.GetBrojGlasova() / (1.00*validnihGlasova)) * 100.0;
+                double postotak = (stranka.GetBrojGlasova() / (1.00 * validnihGlasova)) * 100.0;
                 povrat += "Stranka sa ID-jem " + stranka.vratiIdStranke() + " je osvojila " + (postotak).ToString() + "% glasova! \n";
 
-                if (postotak > 2.00) 
+                if (postotak > 2.00)
                     strankeSaMandatom.Add(stranka);
             });
 
             kandidati.ForEach(kandidat =>
             {
-                double postotak = (kandidat.VratiBrojGlasova() / (validnihGlasova*1.00)) * 100.00;
+                double postotak = (kandidat.VratiBrojGlasova() / (validnihGlasova * 1.00)) * 100.00;
                 povrat += "Kandidat sa JIK-om " + kandidat.dajJIK() + " je osvojio " + (postotak).ToString() + "% glasova! \n";
                 if (postotak > 2.00)
                     nezavisniKandidatiSaMandatom.Add(kandidat);
@@ -108,6 +108,11 @@ namespace OnlineVoting
             });
 
             return povrat;
+        }
+
+        public int dajUkupneGlasove()
+        {
+            return ukupnoGlasova - nevazecihGlasova;
         }
     }
 }
