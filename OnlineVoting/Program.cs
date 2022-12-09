@@ -81,6 +81,7 @@ namespace OnlineVoting
                         Console.WriteLine("1. Nezavisni");
                         Console.WriteLine("2. Stranka i(ili) kandidati");
                         int nacin = Int32.Parse(Console.ReadLine());
+                        Glas g;
                         if (nacin == 1)
                         {
                             nezavisni.ForEach(delegate (Kandidat k)
@@ -89,8 +90,7 @@ namespace OnlineVoting
                             });
 
                             int izborKandidata = Int32.Parse(Console.ReadLine());
-                            Glas g = new Glas(0, new List<Kandidat> { nezavisni.ElementAt(izborKandidata) });
-                            izbori.ProcesirajGlas(prekoJik(jik), g);
+                            g = new Glas(0, new List<Kandidat> { nezavisni.ElementAt(izborKandidata) });
                         }
                         else
                         {
@@ -109,8 +109,14 @@ namespace OnlineVoting
                             {
                                 listaKandidata.Add(stranka.vratiClanove()[kandidati[i]]);
                             }
-                            Glas g = new Glas(stranka.vratiIdStranke(), listaKandidata);
+                            g = new Glas(stranka.vratiIdStranke(), listaKandidata);
+                        }
+                        try
+                        {
                             izbori.ProcesirajGlas(prekoJik(jik), g);
+                        }catch (Exception e)
+                        {
+                            Console.WriteLine("Greška: " +  e.Message);
                         }
                         var glasaci = pop.getGlasaci();
                         glasaci.Add(jik);
