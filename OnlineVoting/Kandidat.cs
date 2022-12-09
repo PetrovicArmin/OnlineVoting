@@ -16,10 +16,9 @@ namespace OnlineVoting
         {
         }
 
-        //ažuriranje detaljnih informacija radi čuvanja stranki u kojima je bio kandidat: by Petrović Armin
+        //by Petrović Armin
         public String DetaljneInformacije()
         {
-            //budući da se same informacije unutar clanstva mogu mijenjati, to se ovaj string mora generirati iznova i iznova!
             detaljneInformacije = "Detaljne informacije: \n" + "Adresa: " + this.adresa + "\nBroj lične karte:  " + this.brojLicneKarte + "\nMatični broj:  " + maticniBroj.ToString() + ".\n";
             detaljneInformacije += "Kandidat je bio: \n";
             for (int i = 0; i < clanstvoUStrankama.Count; i++)
