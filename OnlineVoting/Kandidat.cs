@@ -87,7 +87,7 @@ namespace OnlineVoting
             DateTime datumUclanjenja = informacijeOTrenutnojStranki.Item2;
 
             if (datumUclanjenja > datumOdjave)
-                throw new DataException("Kandidat ne može prije napraviti odjavu nego prijavu!");
+                throw new ArgumentException("Kandidat ne može prije napraviti odjavu nego prijavu!");
 
             clanstvoUStrankama[nazivStranke] = new Tuple<DateTime, DateTime>(datumUclanjenja, datumOdjave);
         }
