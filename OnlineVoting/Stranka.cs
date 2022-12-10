@@ -23,10 +23,6 @@ namespace OnlineVoting
             Clanovi.Add(noviClan);
         }
 
-        public void PostaviRukovodstvo(List<Kandidat> rukovodstvo)
-        {
-            this.Rukovodstvo = rukovodstvo;
-        }
 
         public void DodajClanoveURukovodstvo(List<Kandidat> dodatno)
         {
@@ -119,12 +115,13 @@ namespace OnlineVoting
         {
             int brojGlasova = 0;
             string clanovi = "Kandidati:";
+            Rukovodstvo ??= new List<Kandidat>();
             Rukovodstvo.ForEach(clan =>
             {
-                int osvojio = clan.VratiBrojGlasova();
+                Kandidat original = Clanovi.Find(k => k.Equals(clan));
+                int osvojio = original.VratiBrojGlasova();
                 brojGlasova += osvojio;
-                if (osvojio != 0)
-                    clanovi += "\nIdentifikacioni broj: " + clan.dajJIK();
+                clanovi += "\nIdentifikacioni broj: " + clan.dajJIK();
             });
             string ispis = "Ukupan broj glasova: " + brojGlasova.ToString() + "\n";
             ispis += clanovi;
