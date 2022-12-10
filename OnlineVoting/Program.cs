@@ -97,19 +97,19 @@ namespace OnlineVoting
                             ispisStranaka();
                             Console.Write("Odaberite stranku: ");
                             int s = Int32.Parse(Console.ReadLine());
-                            var stranka = Izbori.stranke.Where(str => str.vratiIdStranke() == s).Single();
+                            var stranka = Izbori.stranke.Where(str => str.VratiIdStranke() == s).Single();
 
                             Console.Write("Odaberite kandidate razdvojene (,): ");
                             string odabrani = Console.ReadLine();
                             var kandidati = odabrani.Split(',')?.Select(Int32.Parse)?.ToList();
                             //Console.WriteLine("Broj: " + kandidati.Count() + " - " + stranka.vratiClanove().Count());
-                            List<Kandidat> sviKandidati = stranka.vratiClanove();
+                            List<Kandidat> sviKandidati = stranka.VratiClanove();
                             List<Kandidat> listaKandidata = new List<Kandidat>();
                             for (int i = 0; i < kandidati.Count(); i++)
                             {
-                                listaKandidata.Add(stranka.vratiClanove()[kandidati[i]]);
+                                listaKandidata.Add(stranka.VratiClanove()[kandidati[i]]);
                             }
-                            g = new Glas(stranka.vratiIdStranke(), listaKandidata);
+                            g = new Glas(stranka.VratiIdStranke(), listaKandidata);
                         }
                         try
                         {
@@ -157,8 +157,8 @@ namespace OnlineVoting
         {
             Izbori.stranke.ForEach(stranka =>
             {
-                Console.WriteLine("ID: " + stranka.vratiIdStranke());
-                stranka.vratiClanove().ForEach(clan => Console.WriteLine("---" + clan.OsnovneInformacije()));
+                Console.WriteLine("ID: " + stranka.VratiIdStranke());
+                stranka.VratiClanove().ForEach(clan => Console.WriteLine("---" + clan.OsnovneInformacije()));
             });
         }
     }
