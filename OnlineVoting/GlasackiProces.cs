@@ -38,7 +38,7 @@ namespace OnlineVoting
             List<string> odabraniKandidati = Glas.VratiIDKandidata(); //ID u smislu IDeve, mnozina.
             List<Stranka> stranke = Izbori.stranke;
             List<Kandidat> nezavisni = Izbori.kandidati;
-            Stranka odabranaStranka = stranke.Find(s => s.vratiIdStranke() == idStranke);
+            Stranka odabranaStranka = stranke.Find(s => s.VratiIdStranke() == idStranke);
             if (idStranke == 0) //uzmimo da je to ako nije odabrao stranku
             {
                 if (odabraniKandidati!=null && odabraniKandidati.Count == 1 && 
@@ -55,7 +55,7 @@ namespace OnlineVoting
                     Glas.PostaviTipGlasa(TipGlasa.SAMO_STRANKA);
                 else
                 {   //da li su svi odabrani clanovi iz odabrane stranke
-                    List<string> kandidatiOdabraneStranke = odabranaStranka.vratiClanove().ConvertAll(
+                    List<string> kandidatiOdabraneStranke = odabranaStranka.VratiClanove().ConvertAll(
                             new Converter<Kandidat, string>(k => k.dajJIK()));
                     if (ContainsAllItems(kandidatiOdabraneStranke, odabraniKandidati))
                         Glas.PostaviTipGlasa(TipGlasa.STRANKA_KANDIDATI);

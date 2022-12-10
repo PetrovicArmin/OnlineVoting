@@ -49,10 +49,10 @@ namespace OnlineVoting
                     nevazecihGlasova++;
                     break;
                 case TipGlasa.SAMO_STRANKA: //po automatizmu prvog člana stranke dodajemo
-                    stranke.Find(s => s.vratiIdStranke() == glas.VratiIDStranke()).DodajGlas(new List<string>());
+                    stranke.Find(s => s.VratiIdStranke() == glas.VratiIDStranke()).DodajGlas(new List<string>());
                     break;
                 case TipGlasa.STRANKA_KANDIDATI:
-                    stranke.Find(s => s.vratiIdStranke() == glas.VratiIDStranke()).DodajGlas(glas.VratiIDKandidata());
+                    stranke.Find(s => s.VratiIdStranke() == glas.VratiIDStranke()).DodajGlas(glas.VratiIDKandidata());
                     break;
                 case TipGlasa.NEZAVISNI_KANDIDAT:
                     kandidati.Find(kandidat => kandidat.dajJIK() == glas.VratiIDKandidata()[0]).DodajGlas();
@@ -80,7 +80,7 @@ namespace OnlineVoting
             stranke.ForEach(stranka =>
             {
                 double postotak = (stranka.GetBrojGlasova() / (1.00 * validnihGlasova)) * 100.0;
-                povrat += "Stranka sa ID-jem " + stranka.vratiIdStranke() + " je osvojila " + (postotak).ToString() + "% glasova! \n";
+                povrat += "Stranka sa ID-jem " + stranka.VratiIdStranke() + " je osvojila " + (postotak).ToString() + "% glasova! \n";
 
                 if (postotak > 2.00)
                     strankeSaMandatom.Add(stranka);
@@ -98,7 +98,7 @@ namespace OnlineVoting
 
             strankeSaMandatom.ForEach(stranka =>
             {
-                povrat += "ID stranke: " + stranka.vratiIdStranke() + ". Članovi stranke koji su dobili mandat su: \n";
+                povrat += "ID stranke: " + stranka.VratiIdStranke() + ". Članovi stranke koji su dobili mandat su: \n";
                 //ovdje nakon što velid implementira svoj dio!
             });
 
