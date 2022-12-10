@@ -39,5 +39,13 @@ namespace OnlineVoting
         {
             return this.JIK;
         }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null) return false;
+            Osoba o = obj as Osoba;
+            if (o == null) return false;
+            return this.dajJIK() == o.dajJIK();
+        }
     }
 }

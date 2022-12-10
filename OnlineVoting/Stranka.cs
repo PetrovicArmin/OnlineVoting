@@ -1,32 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OnlineVoting
 {
     public class Stranka
     {
         private int id { get; set; }
-        private List<Kandidat> clanovi { get; set; }
-        private List<Kandidat> clanoviSaMandatom { get; set; }
+        private List<Kandidat> Clanovi { get; set; }
+        private List<Kandidat> ClanoviSaMandatom { get; set; }
+        private List<Kandidat> Rukovodstvo { get; set; }
         private int BrojGlasova { get; set; }
 
         public Stranka(List<Kandidat> clanovi, int id)
         {
-            this.clanovi = clanovi;
+            this.Clanovi = clanovi;
             this.id = id;
         }
 
-        public void dodajClana(Kandidat noviClan)
+        public void DodajClana(Kandidat noviClan)
         {
-            clanovi.Add(noviClan);
+            Clanovi.Add(noviClan);
         }
 
-        public List<Kandidat> vratiClanove()
+
+        public void DodajClanoveURukovodstvo(List<Kandidat> dodatno)
         {
-            return clanovi;
+            Rukovodstvo ??= new List<Kandidat>();
+            dodatno.ForEach(clan => {
+                if (Clanovi.Contains(clan) && !Rukovodstvo.Contains(clan))
+                    Rukovodstvo.Add(clan);
+                else if (!Clanovi.Contains(clan))
+                    throw new ArgumentException("Kandidat nije clan ove stranke!");
+                else throw new ArgumentException("Kandidat je vec u rukovodstvu!");
+            });
         }
 
-        public int vratiIdStranke()
+        public void UkloniClanoveIzRukovodstva(List<Kandidat> visak)
+        {
+            Rukovodstvo ??= new List<Kandidat>();
+            visak.ForEach(clan => {
+                if (Clanovi.Contains(clan) && Rukovodstvo.Contains(clan))
+                    Rukovodstvo.Remove(clan);
+                else if (!Clanovi.Contains(clan))
+                    throw new ArgumentException("Kandidat nije clan ove stranke!");
+                else throw new ArgumentException("Kandidat nije u rukovodstvu!");
+            });
+        }
+
+        public List<Kandidat> VratiClanove()
+        {
+            return Clanovi;
+        }
+
+        public int VratiIdStranke()
         {
             return id;
         }
@@ -36,13 +63,13 @@ namespace OnlineVoting
             BrojGlasova++;
             if (kandidatiStranke.Count == 0)
             {
-                clanovi[0].DodajGlas();
+                Clanovi[0].DodajGlas();
                 return;
             }
 
             kandidatiStranke.ForEach(id =>
             {
-                clanovi.Find(clan => clan.dajJIK() == id).DodajGlas();
+                Clanovi.Find(clan => clan.dajJIK() == id).DodajGlas();
             });
         }
 
@@ -51,36 +78,53 @@ namespace OnlineVoting
             return BrojGlasova;
         }
         
-        private int dajBrojMandata()
+        private int DajBrojMandata()
         {
             int brojMandata = 0;
-            for(int i = 0; i < clanovi.Count; i++)
+            for(int i = 0; i < Clanovi.Count; i++)
             {
-                if (clanovi[i].VratiBrojGlasova() >= 0.2 * GetBrojGlasova())
+                if (Clanovi[i].VratiBrojGlasova() >= 0.2 * GetBrojGlasova())
                 {
                     brojMandata++;
-                    clanoviSaMandatom.Add(clanovi[i]);
+                    ClanoviSaMandatom.Add(Clanovi[i]);
                 }
             }
             return brojMandata;
         }
 
-        public string prikaziRezultate(int ukupniBrojGlasova)
+        public string PrikaziRezultate(int ukupniBrojGlasova)
         {
             string ispis = "";
             ispis += "Stranka " + id.ToString() + "\n" + "Broj glasova: " + GetBrojGlasova().ToString() + "\n" + "Postotak glasova: ";
             ispis += Math.Round((Decimal)(GetBrojGlasova() / ukupniBrojGlasova * 100)).ToString() + "\n";
-            ispis += "Broj članova sa mandatima: " + dajBrojMandata() + "\n" + "Članovi sa mandatom: \n";
-            for(int i = 0; i < clanoviSaMandatom.Count; i++)
+            ispis += "Broj članova sa mandatima: " + DajBrojMandata() + "\n" + "Članovi sa mandatom: \n";
+            for(int i = 0; i < ClanoviSaMandatom.Count; i++)
             {
-                if(clanoviSaMandatom.Count != 0)
+                if(ClanoviSaMandatom.Count != 0)
                 {
-                    ispis += clanoviSaMandatom[i].OsnovneInformacije() + ", broj glasova " + clanoviSaMandatom[i].VratiBrojGlasova().ToString();
-                    ispis += ", postotak glasova " + Math.Round((Decimal)(clanoviSaMandatom[i].VratiBrojGlasova() / GetBrojGlasova() * 100)).ToString() + ".";
-                    if (i != clanoviSaMandatom.Count - 1)
+                    ispis += ClanoviSaMandatom[i].OsnovneInformacije() + ", broj glasova " + ClanoviSaMandatom[i].VratiBrojGlasova().ToString();
+                    ispis += ", postotak glasova " + Math.Round((Decimal)(ClanoviSaMandatom[i].VratiBrojGlasova() / GetBrojGlasova() * 100)).ToString() + ".";
+                    if (i != ClanoviSaMandatom.Count - 1)
                         ispis += "\n";
                 }
             }
+            return ispis;
+        }
+
+        public string DajRezultateRukovodstva()
+        {
+            int brojGlasova = 0;
+            string clanovi = "Kandidati:";
+            Rukovodstvo ??= new List<Kandidat>();
+            Rukovodstvo.ForEach(clan =>
+            {
+                Kandidat original = Clanovi.Find(k => k.Equals(clan));
+                int osvojio = original.VratiBrojGlasova();
+                brojGlasova += osvojio;
+                clanovi += "\nIdentifikacioni broj: " + clan.dajJIK();
+            });
+            string ispis = "Ukupan broj glasova: " + brojGlasova.ToString() + "\n";
+            ispis += clanovi;
             return ispis;
         }
     }

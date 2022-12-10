@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("OnlineVotingTests")]
 namespace OnlineVoting
 {
     internal class Glas
@@ -12,7 +14,7 @@ namespace OnlineVoting
         {
             this.idStranke = stranka;
             this.idKandidata = kandidati.ConvertAll(
-             new Converter<Kandidat, string>(k => k.dajJIK())); ;
+             new Converter<Kandidat, string>(k => k.dajJIK())); 
         }
 
         public int VratiIDStranke()
