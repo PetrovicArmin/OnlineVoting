@@ -113,15 +113,10 @@ namespace OnlineVoting
         }
 
         // dodala Naida Pita
-        public int dajUkupneGlasove()
+        public int DajUkupneGlasove()
         {
             return ukupnoGlasova - nevazecihGlasova;
         }
 
-        // dodala Naida Pita
-        public void postaviBrojGlasova(int broj)
-        {
-            ukupnoGlasova = broj;
-        }
     }
 }

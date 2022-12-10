@@ -19,7 +19,6 @@ namespace OnlineVotingTests
     [TestClass]
     public class Funk3Tests
     {
-        static Izbori izbori;
         static Stranka strankaA;
         static List<Kandidat> kandidatiA;
 
@@ -39,8 +38,7 @@ namespace OnlineVotingTests
         [TestInitialize]
         public void InicijalizacijaIzbora()
         {
-            izbori = Izbori.DajIzbore();
-            strankaA.resetujClanoveSaMandatom();
+            strankaA.ResetujClanoveSaMandatom();
         }
 
         #region Inline testiranje bez mandata
@@ -62,13 +60,12 @@ namespace OnlineVotingTests
         [DynamicData("BrojeviGlasovaBezMandata")]
         public void prikaziRezultate_NemaClanovaSaMandatom_IspisNemaMandata(int ukupnoGlasova, int glasoviStranke, int glasoviPrviKandidat, int glasoviDrugiKandidat, int glasoviTreciKandidat)
         {
-            izbori.postaviBrojGlasova(ukupnoGlasova);
-            strankaA.postaviBrojGlasova(glasoviStranke);
-            kandidatiA[0].postaviBrojGlasova(glasoviPrviKandidat);
-            kandidatiA[1].postaviBrojGlasova(glasoviDrugiKandidat);
-            kandidatiA[2].postaviBrojGlasova(glasoviTreciKandidat);
-            strankaA.nadjiMandatlije();
-            Assert.IsTrue(strankaA.prikaziRezultate(izbori.dajUkupneGlasove()).Contains("Nema članova sa mandatom."));
+            strankaA.PostaviBrojGlasova(glasoviStranke);
+            kandidatiA[0].PostaviBrojGlasova(glasoviPrviKandidat);
+            kandidatiA[1].PostaviBrojGlasova(glasoviDrugiKandidat);
+            kandidatiA[2].PostaviBrojGlasova(glasoviTreciKandidat);
+            strankaA.NadjiMandatlije();
+            Assert.IsTrue(strankaA.PrikaziRezultate(ukupnoGlasova).Contains("Nema članova sa mandatom."));
         }
         #endregion
 
@@ -91,13 +88,12 @@ namespace OnlineVotingTests
         [DynamicData("BrojeviGlasovaJedanMandat")]
         public void prikaziRezultate_JedanMandatlija_IspisBrojMandataJedan(int ukupnoGlasova, int glasoviStranke, int glasoviPrviKandidat, int glasoviDrugiKandidat, int glasoviTreciKandidat)
         {
-            izbori.postaviBrojGlasova(ukupnoGlasova);
-            strankaA.postaviBrojGlasova(glasoviStranke);
-            kandidatiA[0].postaviBrojGlasova(glasoviPrviKandidat);
-            kandidatiA[1].postaviBrojGlasova(glasoviDrugiKandidat);
-            kandidatiA[2].postaviBrojGlasova(glasoviTreciKandidat);
-            strankaA.nadjiMandatlije();       
-            Assert.IsTrue(strankaA.prikaziRezultate(izbori.dajUkupneGlasove()).Contains("Broj članova sa mandatima: 1"));
+            strankaA.PostaviBrojGlasova(glasoviStranke);
+            kandidatiA[0].PostaviBrojGlasova(glasoviPrviKandidat);
+            kandidatiA[1].PostaviBrojGlasova(glasoviDrugiKandidat);
+            kandidatiA[2].PostaviBrojGlasova(glasoviTreciKandidat);
+            strankaA.NadjiMandatlije();       
+            Assert.IsTrue(strankaA.PrikaziRezultate(ukupnoGlasova).Contains("Broj članova sa mandatima: 1"));
         }
 
 
@@ -108,17 +104,16 @@ namespace OnlineVotingTests
         [TestMethod]
         public void prikaziRezultate_TriMandatlije_IspisBrojMandataTri()
         {
-            izbori.postaviBrojGlasova(150);
-            strankaA.postaviBrojGlasova(100);
-            kandidatiA[0].postaviBrojGlasova(50);
-            kandidatiA[1].postaviBrojGlasova(25);
-            kandidatiA[2].postaviBrojGlasova(25);
-            strankaA.nadjiMandatlije();
+            strankaA.PostaviBrojGlasova(100);
+            kandidatiA[0].PostaviBrojGlasova(50);
+            kandidatiA[1].PostaviBrojGlasova(25);
+            kandidatiA[2].PostaviBrojGlasova(25);
+            strankaA.NadjiMandatlije();
             string exp = "\nStranka 1\nBroj glasova: " + 100 + "\nPostotak glasova: " + (66.67).ToString() + "%\n";
             exp += "Broj članova sa mandatima: 3\nČlanovi sa mandatom: \n1. Mujo Mujić, broj glasova " + 50 + ", postotak glasova 50%.\n";
             exp += "2. Haso Hasić, broj glasova " + 25 + ", postotak glasova 25%.\n";
             exp += "3. Josip Josipović, broj glasova " + 25 + ", postotak glasova 25%.";
-            Assert.AreEqual(exp, strankaA.prikaziRezultate(izbori.dajUkupneGlasove()));
+            Assert.AreEqual(exp, strankaA.PrikaziRezultate(150));
         }
         #endregion
 
@@ -127,13 +122,12 @@ namespace OnlineVotingTests
         [ExpectedException(typeof(Exception))]
         public void prikaziRezultate_GlasoviStrankeVeciOdUkupnih_Izuzetak()
         {
-            izbori.postaviBrojGlasova(150);
-            strankaA.postaviBrojGlasova(151);
-            kandidatiA[0].postaviBrojGlasova(50);
-            kandidatiA[1].postaviBrojGlasova(25);
-            kandidatiA[2].postaviBrojGlasova(25);
-            strankaA.nadjiMandatlije();
-            strankaA.prikaziRezultate(izbori.dajUkupneGlasove());
+            strankaA.PostaviBrojGlasova(151);
+            kandidatiA[0].PostaviBrojGlasova(50);
+            kandidatiA[1].PostaviBrojGlasova(25);
+            kandidatiA[2].PostaviBrojGlasova(25);
+            strankaA.NadjiMandatlije();
+            strankaA.PrikaziRezultate(150);
         }
 
         #endregion
@@ -165,14 +159,13 @@ namespace OnlineVotingTests
         [DynamicData("GlasoviZaFunk3")]
         public void prikaziRezultate_CSVPodaci_Ispis2Mandata(int ukupnoGlasova, int glasoviStranke, int glasoviPrviKandidat, int glasoviDrugiKandidat, int glasoviTreciKandidat)
         {
-            izbori.postaviBrojGlasova(ukupnoGlasova);
-            strankaA.postaviBrojGlasova(glasoviStranke);
-            kandidatiA[0].postaviBrojGlasova(glasoviPrviKandidat);
-            kandidatiA[1].postaviBrojGlasova(glasoviDrugiKandidat);
-            kandidatiA[2].postaviBrojGlasova(glasoviTreciKandidat);
-            strankaA.nadjiMandatlije();
-            Assert.IsTrue(strankaA.prikaziRezultate(izbori.dajUkupneGlasove()).Contains("1. Mujo Mujić"));
-            Assert.IsTrue(strankaA.prikaziRezultate(izbori.dajUkupneGlasove()).Contains("2. Josip Josipović"));
+            strankaA.PostaviBrojGlasova(glasoviStranke);
+            kandidatiA[0].PostaviBrojGlasova(glasoviPrviKandidat);
+            kandidatiA[1].PostaviBrojGlasova(glasoviDrugiKandidat);
+            kandidatiA[2].PostaviBrojGlasova(glasoviTreciKandidat);
+            strankaA.NadjiMandatlije();
+            Assert.IsTrue(strankaA.PrikaziRezultate(ukupnoGlasova).Contains("1. Mujo Mujić"));
+            Assert.IsTrue(strankaA.PrikaziRezultate(ukupnoGlasova).Contains("2. Josip Josipović"));
         }
         #endregion
     }
