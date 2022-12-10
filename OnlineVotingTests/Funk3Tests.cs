@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace OnlineVotingTests
 {   
-    // Uradila: Naida Pita
+    // Uradila: Naida Pita, 18849
     // Za ovu funkcionalnost dodane su:
     // metoda dajBrojMandata u klasi Stranka koja ujedno i stavlja u listu clanove sa mandatom
     // metoda u klasi Izbori koja vraca broj ukupnih validnih glasova na izborima
