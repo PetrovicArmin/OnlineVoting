@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace OnlineVoting
@@ -18,6 +19,7 @@ namespace OnlineVoting
 
         public Osoba (string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {
+            validiraj(ime, prezime, adresa, datumRodjenja, brojLicneKarte, maticniBroj);
             this.ime = ime;
             this.prezime = prezime;
             this.adresa = adresa;
@@ -46,6 +48,38 @@ namespace OnlineVoting
             Osoba o = obj as Osoba;
             if (o == null) return false;
             return this.dajJIK() == o.dajJIK();
+        }
+
+        private bool validiraj(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
+        {
+            string prviDioMaticnog = datumRodjenja.Substring(0, 2) + datumRodjenja.Substring(3, 2) + datumRodjenja.Substring(7, 3);
+            string pattern = @"^([A-Z\u0100-\u017Fa-z\-]+)$";
+            bool samoSlovaICrtice = Regex.IsMatch(ime + prezime, pattern);
+            if (ime.Trim(' ') == "" || prezime.Trim(' ') == "" || adresa.Trim(' ') == "")
+                throw new ArgumentException("Ime, prezime i adresa ne smiju biti prazni");
+            if (!(ime.Count() >= 2 && ime.Count() <= 40))
+                throw new ArgumentException("Ime mora biti između 2 i 40 karaktera");
+            if (!(prezime.Count() >= 3 && prezime.Count() <= 50))
+                throw new ArgumentException("Prezime mora biti između 3 i 50 karaktera");
+            if (!samoSlovaICrtice)
+                throw new ArgumentException("Ime i prezime smiju sadržavati samo slova i crtice");
+            DateTime dob = DateTime.ParseExact(datumRodjenja, "dd.MM.yyyy",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+            if (dob > DateTime.Now)
+                throw new ArgumentException("Datum rođenja ne može biti u budučnosti");
+            if (dob.AddYears(18) > DateTime.Now)
+                throw new ArgumentException("Glasač mora biti punoljetan");
+            if (!Regex.IsMatch(brojLicneKarte, @"^\d{4}[EJKMT]\d{4}$"))
+                throw new ArgumentException("Broj lične karte mora biti u formatu 9999A9999");
+            if (maticniBroj.ToString().Substring(0, 7) != prviDioMaticnog || maticniBroj.ToString().Count() != 13)
+                throw new ArgumentException("Matični broj nije validan");
+            String jikOcekivani = "";
+            String jik = generisiJIK(ime, prezime, adresa, datumRodjenja, brojLicneKarte, maticniBroj);
+            jikOcekivani = ime.Substring(0, 2) + prezime.Substring(0, 2) + adresa.Substring(0, 2) + datumRodjenja.Substring(0, 2) +
+                brojLicneKarte.Substring(0, 2) + maticniBroj.ToString().Substring(0, 2);
+            if (jikOcekivani != jik)
+                throw new ArgumentException("JIK nije ispravno generisan");
+            return true;
         }
     }
 }
