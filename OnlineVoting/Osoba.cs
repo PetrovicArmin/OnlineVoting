@@ -78,6 +78,12 @@ namespace OnlineVoting
             return true;
         }
 
+        private void ValidirajJIK(string ime, string prezime, string adresa, string datumRodjenja, string brojLicneKarte, long maticniBroj, string JIK)
+        {
+            if (generisiJIK(ime, prezime, adresa, datumRodjenja, brojLicneKarte, maticniBroj) != JIK)
+                throw new ArgumentException("Neispravan JIK")
+        }
+
         //zadatak 2 zadaća 5
         public bool VjerodostojnostGlasaca(IProvjera sigurnosnaProvjera)
         {
