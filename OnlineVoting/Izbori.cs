@@ -93,10 +93,10 @@ namespace OnlineVoting
                     nevazecihGlasova--;
                     break;
                 case TipGlasa.SAMO_STRANKA: //po automatizmu prvog člana stranke dodajemo
-                    stranke.Find(s => s.vratiIdStranke() == glas.VratiIDStranke()).OduzmiGlas(new List<string>());
+                    stranke.Find(s => s.VratiIdStranke() == glas.VratiIDStranke()).OduzmiGlas(new List<string>());
                     break;
                 case TipGlasa.STRANKA_KANDIDATI:
-                    stranke.Find(s => s.vratiIdStranke() == glas.VratiIDStranke()).OduzmiGlas(glas.VratiIDKandidata());
+                    stranke.Find(s => s.VratiIdStranke() == glas.VratiIDStranke()).OduzmiGlas(glas.VratiIDKandidata());
                     break;
                 case TipGlasa.NEZAVISNI_KANDIDAT:
                     kandidati.Find(kandidat => kandidat.dajJIK() == glas.VratiIDKandidata()[0]).OduzmiGlas();
