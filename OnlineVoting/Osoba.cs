@@ -50,6 +50,7 @@ namespace OnlineVoting
             return this.dajJIK() == o.dajJIK();
         }
 
+        // Velid
 
         private bool validiraj(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {
@@ -74,14 +75,9 @@ namespace OnlineVoting
                 throw new ArgumentException("Broj lične karte mora biti u formatu 999A999");
             if (maticniBroj.ToString().Substring(0, 7) != prviDioMaticnog || maticniBroj.ToString().Count() != 13)
                 throw new ArgumentException("Matični broj nije validan");
-            String jikOcekivani = "";
-            String jik = generisiJIK(ime, prezime, adresa, datumRodjenja, brojLicneKarte, maticniBroj);
-            jikOcekivani = ime.Substring(0, 2) + prezime.Substring(0, 2) + adresa.Substring(0, 2) + datumRodjenja.Substring(0, 2) +
-                brojLicneKarte.Substring(0, 2) + maticniBroj.ToString().Substring(0, 2);
-            if (jikOcekivani != jik)
-                throw new ArgumentException("JIK nije ispravno generisan");
             return true;
         }
+
         //zadatak 2 zadaća 5
         public bool VjerodostojnostGlasaca(IProvjera sigurnosnaProvjera)
         {

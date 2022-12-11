@@ -9,8 +9,8 @@ namespace OnlineVotingTests
     [TestClass]
     public class Funk1Tests
     {
-        //private Osoba? osoba = new Osoba("Neko", "Nekic", "Negdje", "21.02.2001", "1234567890", 210200112345);
-
+        // Uradio: Imširović Velid, 18913
+        // Za ovu funkcionalnost dodana je funkcija u klasi Osoba: validiraj()
         #region Testiranje validacije - izuzeci
 
         [TestMethod]
