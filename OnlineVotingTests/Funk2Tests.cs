@@ -26,7 +26,7 @@ namespace OnlineVotingTests
         public static DateTime najkasnijaOdjavaPrijavljenog = DateTime.Now.AddDays(20);
         public static DateTime najkasnijaOdjavaOdjavljenog = DateTime.Now.AddDays(8);
 
-        //mora biti prije svakog testa, jer u testovima modifikujemo ove objekte!
+        #region inicijaizacijska metoda
         [TestInitialize]
         public void InicijalizacijaKandidata()
         {
@@ -44,8 +44,9 @@ namespace OnlineVotingTests
             kandidatBezStranke.UclaniUStranku("stranka 2", DateTime.Now.AddDays(6));
             kandidatBezStranke.OdjaviIzStranke("stranka 2", najkasnijaOdjavaOdjavljenog);
         }
+        #endregion
 
-        //inicijalizacija podataka za inline testiranje
+        #region inicijalizacija podataka za inline i csv testiranje
         static IEnumerable<object[]> ArgumentiZaUclanjenje
         {
             get
@@ -58,7 +59,6 @@ namespace OnlineVotingTests
             }
         }
 
-        //inicijalizacija podataka za CSV testiranje
         static IEnumerable<object[]> ArgumentiOdjavaCSV
         {
             get
@@ -81,8 +81,9 @@ namespace OnlineVotingTests
                 }
             }
         }
+        #endregion
 
-        //testovi za UclaniUStranku
+        #region testovi za UclaniUStranku
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Uclani_VecUclanjen_BacanjeIzuzetka()
@@ -106,8 +107,10 @@ namespace OnlineVotingTests
                 Assert.AreEqual(tekstIzuzetka, argEx.Message);
             }
         }
+        #endregion
 
-        //testovi za OdjaviIzStranke
+        #region Testovi za OdjaviIzStranke
+        
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void Odjavi_NijeUclanjen_BacanjeIzuzetka()
@@ -131,7 +134,9 @@ namespace OnlineVotingTests
             }
         }
 
-        //testovi metode DetaljneInformacije
+        #endregion
+
+        #region testovi metode DetaljneInformacije
         [TestMethod]
         public void DetaljneInformacije_Uclanjen_SadrziDanDanas()
         {
@@ -144,7 +149,9 @@ namespace OnlineVotingTests
             StringAssert.DoesNotMatch(kandidatBezStranke?.DetaljneInformacije(), new Regex("(?:^|\\W)DAN DANAS(?:$|\\W)"));
         }
 
-        //testovi metode DajNajkasnijuOdjavu
+        #endregion
+
+        #region testovi metode DajNajkasnijuOdjavu
         [TestMethod]
         public void NajkasnijaOdjava_Uclanjen_VracaOdjavu()
         {
@@ -162,8 +169,9 @@ namespace OnlineVotingTests
         {
             Assert.AreEqual(new Kandidat("kandidat1", "sa strankom", "adresa 1", "10/02/2002", "999A999", 1002002195843).DajNajkasnijuOdjavu(), DateTime.MinValue);
         }
+        #endregion
 
-        //testovi metode DajTrenutnuStranku
+        #region testovi metode DajTrenutnuStranku
         [TestMethod]
         public void TrenutnaStranka_KandidatSaStrankom_VracaStranku()
         {
@@ -175,5 +183,7 @@ namespace OnlineVotingTests
         {
             Assert.IsNull(kandidatBezStranke?.DajTrenutnuStranku());
         }
+
+        #endregion
     }
 }
