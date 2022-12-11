@@ -131,6 +131,21 @@ namespace OnlineVotingTests
             Osoba osoba = new Osoba("Ed", "Mujićnekićgromdrvostablosjekirapticarugalica", "Negdje daleko bb", "11.11.1991", "889J988", 1111991253321);
         }
         #endregion
+        #region Testiranje JIK
+        [TestMethod]
+        public void ValidirajJIK_JIKIspravan()
+        {
+            Osoba osoba = new Osoba("Ed", "Mujićnekićgromdrvostablosjekirapticarugalica", "Negdje daleko bb", "11.11.1991", "889J988", 1111991253321);
+            Assert.IsTrue(osoba.ValidirajJIK("EdMuNe118811"));
+        }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ValidirajJIK_JIKNijeIspravan()
+        {
+            Osoba osoba = new Osoba("Ed", "Mujićnekićgromdrvostablosjekirapticarugalica", "Negdje daleko bb", "11.11.1991", "889J988", 1111991253321);
+            Assert.IsTrue(osoba.ValidirajJIK("EdMiNe118811"));
+        }
+        #endregion
     }
 }
