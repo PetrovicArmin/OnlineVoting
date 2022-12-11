@@ -107,5 +107,11 @@ namespace OnlineVoting
         {
             return BrojGlasova;
         }
+
+        // dodala Naida Pita
+        public void PostaviBrojGlasova(int broj)
+        {
+            BrojGlasova = broj;
+        }
     }
 }
