@@ -16,16 +16,16 @@ namespace OnlineVotingTests
 
         #region Inicijalizacija podataka
         [ClassInitialize]
-        public void InicijalizacijaGlasaca()
+        public static void InicijalizacijaGlasaca(TestContext context)
         {
             osobe = new List<Osoba>
             {
-                new Osoba("Faruk", "Šahat", "Negdje Sarajevu", "01.01.2001", "12345667", 0101001126211),
-                new Osoba("Naida", "Pita", "Isto Sarajevo", "02.02.2001", "12345667", 0202001156234),
-                new Osoba("Velid", "Imširović", "Aleja Bosne Srebrene bb", "31.08.2001", "12345667", 0303001156234),
-                new Osoba("Dženana", "Terzić", "Zmaja od Bosne bb", "04.04.2001", "12345667", 0404001156234),
-                new Osoba("Armin", "Petrović", "Aleja Bosne Srebrene bb", "05.05.2001", "12345667", 0505001156234),
-                new Osoba("Mujo", "Mujić", "Hendek bb", "06.06.2001", "12345667", 0606001156234),
+                new Osoba("Faruk", "Šahat", "Negdje Sarajevu", "11.01.2001", "123E667", 1101001126211),
+                new Osoba("Naida", "Pita", "Isto Sarajevo", "12.02.2001", "123J667", 1202001156234),
+                new Osoba("Velid", "Imširović", "Aleja Bosne Srebrene bb", "31.08.2001", "123K667", 3108001123456),
+                new Osoba("Dženana", "Terzić", "Zmaja od Bosne bb", "14.04.2001", "123M667", 1404001156234),
+                new Osoba("Armin", "Petrović", "Aleja Bosne Srebrene bb", "15.05.2001", "123T667", 1505001156234),
+                new Osoba("Mujo", "Mujić", "Hendek bb", "16.06.2001", "123T167", 1606001156234),
             };
 
             //prve tri osobe ćemo staviti da su glasale već:
