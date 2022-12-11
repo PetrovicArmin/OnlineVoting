@@ -34,7 +34,7 @@ namespace OnlineVotingTests
             {
                 new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "999K999", 1212992252342),
                     new Kandidat("Haso", "Hasić", "Hendek bb", "12.12.1992", "888M888", 1212992252341),
-                    new Kandidat("Josip", "Josipović", "Adresa", "04.11.1989", "111E111", 0411989888888)
+                    new Kandidat("Josip", "Josipović", "Adresa", "14.11.1989", "111E111", 1411989888888)
             };
             stranka = new Stranka(Kandidati, 1);
             Izbori.stranke = new List<Stranka> { stranka };
@@ -146,7 +146,7 @@ namespace OnlineVotingTests
                 {
                     new object[] {"Mujo", "Mujić", "Hendek bb", "12.12.1992", "999K999", 1212992252342 },
                     new object[] {"Haso", "Hasić", "Hendek bb", "12.12.1992", "888M888", 1212992252341},
-                    new object[] {"Josip", "Josipović", "Adresa", "04.11.1989", "111E111", 0411989888888}
+                    new object[] {"Josip", "Josipović", "Adresa", "14.11.1989", "111E111", 1411989888888}
                 };
             }
         }
