@@ -9,6 +9,7 @@ namespace OnlineVoting
     internal class Populacija
     {
         private List<string> glasaci = new List<string> { };
+        private List<Glas> glasovi = new List<Glas> { };
         static private Populacija populacija = null;
 
         private Populacija(List<string> glasaci)
@@ -36,9 +37,26 @@ namespace OnlineVoting
             return glasaci;
         }
 
-        public void DodajGlasaca(string jik)
+        //za potrebe funk 5 modifikovao Faruk
+        public void DodajGlasaca(string jik, Glas glas)
         {
             glasaci.Add(jik);
+            glasovi.Add(glas);
+        }
+
+        //za potrebe funk 5 dodao Faruk
+        public Glas DajGlas(string jik)
+        {
+            int index = glasaci.FindIndex(a => a == jik);
+            return glasovi.ElementAt(index);
+        }
+
+        //za potrebe funk 5 dodao Faruk
+        public void UkloniGlasaca(string jik)
+        {
+            int index = glasaci.FindIndex(a => a == jik);
+            glasaci.RemoveAt(index);
+            glasovi.RemoveAt(index);
         }
     }
 }

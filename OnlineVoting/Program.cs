@@ -56,7 +56,8 @@ namespace OnlineVoting
                 Console.WriteLine("2. Prikaz glasača");
                 Console.WriteLine("3. Prikaz stranki i kandidata");
                 Console.WriteLine("4. Glasaj");
-                Console.WriteLine("5. Ispis trenutnih stanja");
+                Console.WriteLine("5. Poništi glas (administrator)");
+                Console.WriteLine("6. Ispis trenutnih stanja");
                 Console.Write("Unesite opciju: ");
                 opcija = Int32.Parse(Console.ReadLine());
                 switch (opcija)
@@ -84,7 +85,7 @@ namespace OnlineVoting
                     case 4:
                         Console.WriteLine("JIK: ");
                         string jik = Console.ReadLine();
-
+                        string kome = "";
                         Console.WriteLine("1. Nezavisni");
                         Console.WriteLine("2. Stranka i(ili) kandidati");
                         int nacin = Int32.Parse(Console.ReadLine());
@@ -95,8 +96,8 @@ namespace OnlineVoting
                             {
                                 Console.WriteLine(k.OsnovneInformacije());
                             });
-
-                            int izborKandidata = Int32.Parse(Console.ReadLine());
+                            kome= Console.ReadLine();
+                            int izborKandidata = Int32.Parse(kome);
                             g = new Glas(0, new List<Kandidat> { nezavisni.ElementAt(izborKandidata) });
                         }
                         else
@@ -108,6 +109,7 @@ namespace OnlineVoting
 
                             Console.Write("Odaberite kandidate razdvojene (,): ");
                             string odabrani = Console.ReadLine();
+                            kome = odabrani;
                             var kandidati = odabrani.Split(',')?.Select(Int32.Parse)?.ToList();
                             //Console.WriteLine("Broj: " + kandidati.Count() + " - " + stranka.vratiClanove().Count());
                             List<Kandidat> sviKandidati = stranka.vratiClanove();
@@ -125,11 +127,40 @@ namespace OnlineVoting
                         {
                             Console.WriteLine("Greška: " +  e.Message);
                         }
-                        var glasaci = pop.getGlasaci();
-                        glasaci.Add(jik);
-                        pop.setGlasaci(glasaci);
+                        pop.DodajGlasaca(jik, g);
                         break;
                     case 5:
+                        Console.WriteLine("Ova funkcionalnost je dostupna samo administratorima sistema. Molimo unesite šifru:");
+                        int brojac = 0;
+                        string sifra = "";
+                        while (brojac != 3)
+                        {
+                            sifra= Console.ReadLine();
+                            if (izbori.ProvjeraSifre(sifra)) break;
+                            Console.WriteLine("Unesena šifra nije ispravna. Pokušajte ponovno.");
+                            brojac++;
+                        }
+                        if (brojac == 3)
+                        {
+                            Console.WriteLine("Pristup Vam nije dozvoljen. Rad programa se obustavlja.");
+                            opcija = -1;
+                        }
+                        if (opcija == -1) break;
+                        Console.WriteLine("JIK: ");
+                        jik = Console.ReadLine();
+
+                        g = pop.DajGlas(jik);
+                        try
+                        {
+                            izbori.PonistiGlas(prekoJik(jik), g);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Greška: " + e.Message);
+                        }
+                        pop.UkloniGlasaca(jik);
+                        break;
+                    case 6:
                         Console.WriteLine(izbori.TrenutnoStanje());
                         break;
                 }
