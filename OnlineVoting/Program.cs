@@ -10,33 +10,33 @@ namespace OnlineVoting
 
         private static List<Osoba> osobe = new List<Osoba>
         {
-            new Osoba("Faruk", "Šahat", "Negdje Sarajevu", "01.01.2001", "12345667", 0101001126211),
-            new Osoba("Naida", "Pita", "Isto Sarajevo", "02.02.2001", "12345667", 0202001156234),
-            new Osoba("Velid", "Imširović", "Aleja Bosne Srebrene bb", "31.08.2001", "12345667", 0303001156234),
-            new Osoba("Dženana", "Terzić", "Zmaja od Bosne bb", "04.04.2001", "12345667", 0404001156234),
-            new Osoba("Armin", "Petrović", "Aleja Bosne Srebrene bb", "05.05.2001", "12345667", 0505001156234),
-            new Osoba("Mujo", "Mujić", "Hendek bb", "06.06.2001", "12345667", 0606001156234),
+            new Osoba("Faruk", "Šahat", "Negdje Sarajevu", "21.01.2001", "333M333", 2101001126211),
+            new Osoba("Naida", "Pita", "Isto Sarajevo", "12.02.2001", "341T312", 1202001156234),
+            new Osoba("Velid", "Imširović", "Aleja Bosne Srebrene bb", "31.08.2001", "111T111", 3108001154123),
+            new Osoba("Dženana", "Terzić", "Zmaja od Bosne bb", "14.04.2001", "222J222", 1404001156234),
+            new Osoba("Armin", "Petrović", "Aleja Bosne Srebrene bb", "25.05.2001", "871K261", 2505001156234),
+            new Osoba("Mujo", "Mujić", "Hendek bb", "16.06.2001", "123E123", 1606001156234),
         }; // Nek ima nekih random osoba, samo da se ima
 
         private static List<Kandidat> kandidatiA = new List<Kandidat>
         {
-            new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-            new Kandidat("Haso", "Hasić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-            new Kandidat("Josip", "Josipović", "Adresa", "4.11.1989", "1231231231", 2214189271298)
+            new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "678M612", 1212992222645),
+            new Kandidat("Haso", "Hasić", "Hendek bb", "12.12.1992", "323T451", 1212992252341),
+            new Kandidat("Josip", "Josipović", "Adresa", "24.11.1989", "654T545", 2411989541235)
         };
 
         private static List<Kandidat> kandidatiB = new List<Kandidat>
         {
-            new Kandidat("Stipo", "Stipić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-            new Kandidat("Suljo", "Suljić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-            new Kandidat("Suada", "Suadić", "Adresa", "4.11.1989", "1231231231", 2214189271298)
+            new Kandidat("Stipo", "Stipić", "Hendek bb", "12.12.1992", "332T331", 1212992010001),
+            new Kandidat("Suljo", "Suljić", "Hendek bb", "12.12.1992", "112T112", 1212992010211),
+            new Kandidat("Suada", "Suadić", "Adresa", "14.11.1989", "115J551", 1411989578945)
         };
 
         private static List<Kandidat> nezavisni = new List<Kandidat>
         {
-            new Kandidat("Džo", "Bajden", "Amerika", "11.11.1959", "123123123213", 214529384738971),
-            new Kandidat("Sin", "Džin Pin", "Kina", "10.10.1234", "2312312312312", 125354634334123),
-            new Kandidat("Pedro", "Sančez", "Španija", "5.6.1961", "1412512151245", 121982781231)
+            new Kandidat("Džo", "Bajden", "Amerika", "11.11.1959", "889K882", 1111959541232),
+            new Kandidat("Sin", "Džin-Pin", "Kina", "10.10.1234", "112K336", 1010234541235),
+            new Kandidat("Pedro", "Sančez", "Španija", "25.06.1961", "889T998", 2506961452324)
         };
 
         private static Stranka strankaA = new Stranka(kandidatiA, 1);

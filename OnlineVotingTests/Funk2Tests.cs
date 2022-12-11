@@ -31,14 +31,14 @@ namespace OnlineVotingTests
         public void InicijalizacijaKandidata()
         {
 
-            kandidatUStranci = new Kandidat("kandidat1", "sa strankom", "adresa 1", "10/02/2002", "999A999", 1002002195843);
+            kandidatUStranci = new Kandidat("kandidatj", "sa-strankom", "adresa 1", "10.02.2002", "999J999", 1002002195843);
             kandidatUStranci.UclaniUStranku("stranka 1", DateTime.Now);
             kandidatUStranci.OdjaviIzStranke("stranka 1", DateTime.Now.AddDays(10));
             kandidatUStranci.UclaniUStranku("stranka 2", DateTime.Now.AddDays(15));
             kandidatUStranci.OdjaviIzStranke("stranka 2", najkasnijaOdjavaPrijavljenog);
             kandidatUStranci.UclaniUStranku("stranka 3", DateTime.Now.AddDays(22));
 
-            kandidatBezStranke = new Kandidat("kandidat2", "bez stranke", "adresa 2", "10/02/2003", "982B133", 1243005195843);
+            kandidatBezStranke = new Kandidat("kandidatd", "bez-stranke", "adresa 2", "10.02.2003", "982K133", 1002003195843);
             kandidatBezStranke.UclaniUStranku("stranka 1", DateTime.Now);
             kandidatBezStranke.OdjaviIzStranke("stranka 1", DateTime.Now.AddDays(4));
             kandidatBezStranke.UclaniUStranku("stranka 2", DateTime.Now.AddDays(6));
@@ -167,7 +167,7 @@ namespace OnlineVotingTests
         [TestMethod]
         public void NajkasnijaOdjava_NemaOdjava_VracaMinValue()
         {
-            Assert.AreEqual(new Kandidat("kandidat1", "sa strankom", "adresa 1", "10/02/2002", "999A999", 1002002195843).DajNajkasnijuOdjavu(), DateTime.MinValue);
+            Assert.AreEqual(new Kandidat("kandidatj", "sa-strankom", "adresa 1", "10.02.2002", "999J999", 1002002195843).DajNajkasnijuOdjavu(), DateTime.MinValue);
         }
         #endregion
 
