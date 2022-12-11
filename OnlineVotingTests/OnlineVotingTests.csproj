@@ -32,6 +32,9 @@
     <None Update="Funk4TestsData.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="funk5glasaci.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="GlasoviZaFunk3.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
