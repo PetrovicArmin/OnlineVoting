@@ -1,4 +1,6 @@
-﻿using OnlineVoting;
+﻿using CsvHelper;
+using OnlineVoting;
+using System.Globalization;
 
 namespace OnlineVotingTests
 {
@@ -122,7 +124,69 @@ namespace OnlineVotingTests
             Assert.AreEqual(pop.getGlasovi().Count, 2);
 
     }
-    #endregion
+        #endregion
+
+        #region Inline testiranje
+        static IEnumerable<object[]> Sifre_pogresne
+        {
+            get
+            {
+                return new[]
+                {
+                    new object[] {" "},
+                    new object[] {"nebitan string"},
+                    new object[] {"vvs20222023"},
+                    new object[] {"Vvs20222023"},
+                    new object[] {"VVS.20222023"}
+                };
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("Sifre_pogresne")]
+        public void ProvjeraSifre_Pogresna(string pokusaj)
+        {
+            Assert.IsFalse(izbori.ProvjeraSifre(pokusaj));
+        }
+
+
+        #endregion
+
+        #region CSV testiranje
+        static IEnumerable<object[]> NepostojeciGlasaci
+        {
+            get
+            {
+                return LoadCSV();
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("NepostojeciGlasaci")] //nemam neku veliku potrebu da testiram razlicite vrste podataka jer su mi specificni exceptioni, ali ovdje cu testirati system exception da pokazem znanje iz csva
+        [ExpectedException(typeof(Exception))]
+        public void Test(string ime, string prezime, string adresa, string rodjendan, string licna, long matbr, int stranka, int pozicija)
+        {
+            Osoba glasac = new Osoba(ime, prezime, adresa, rodjendan, licna, matbr);
+            izbori.PonistiGlas(glasac, new Glas(stranka, new List<Kandidat> { Kandidati.ElementAt(pozicija) }));
+        }
+        
+        static IEnumerable<object[]> LoadCSV()
+        {
+            using (var reader = new StreamReader("Funk5glasaci.csv"))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var rows = csv.GetRecords<dynamic>();
+                foreach (var row in rows)
+                {
+                    var values = ((IDictionary<String, Object>)row).Values;
+                    var elements = values.Select(elem => elem.ToString()).ToList();
+                    yield return new object[] { elements[0], elements[1],
+                        elements[2], elements[3], elements[4], long.Parse(elements[5]), int.Parse(elements[6]), int.Parse(elements[7])};
+                }
+            }
+        }
+
+        #endregion
 
     }
 }
