@@ -13,6 +13,7 @@ namespace OnlineVoting
         public static List<Stranka> stranke = new List<Stranka>();
         public static List<Kandidat> kandidati = new List<Kandidat>();
         static private Izbori singletonIzbori = null;
+        static private string sifra = "VVS20222023";
 
         //koliko je gradjana izaslo na izbore, ovo nije ukupna populacija
         private int ukupnoGlasova = 0;
@@ -58,6 +59,47 @@ namespace OnlineVoting
                     break;
                 case TipGlasa.NEZAVISNI_KANDIDAT:
                     kandidati.Find(kandidat => kandidat.dajJIK() == glas.VratiIDKandidata()[0]).DodajGlas();
+                    break;
+            }
+
+            return ukupnoGlasova;
+        }
+
+        //metoda dodana zbog potreba funkcionalnosti 5, Faruk
+        public bool ProvjeraSifre(string unos)
+        {
+            if (unos != sifra) return false;
+            return true;
+        }
+
+        //metoda dodana zbog potreba funkcionalnosti 5, Faruk
+        public int PonistiGlas(Osoba osoba, Glas glas)
+        {
+            GlasackiProces glasackiProces = new GlasackiProces(osoba, glas);
+
+            if (glasackiProces.IdentifikujGlasaca())
+            {
+                //nije nikad ni glasao
+                throw new Exception("Gradjanin nije jos glasao");
+            }
+
+            ukupnoGlasova--;
+
+            TipGlasa tipGlasa = glasackiProces.VerifikujGlas();
+
+            switch (tipGlasa)
+            {
+                case TipGlasa.NEVAZECI:
+                    nevazecihGlasova--;
+                    break;
+                case TipGlasa.SAMO_STRANKA: //po automatizmu prvog člana stranke dodajemo
+                    stranke.Find(s => s.vratiIdStranke() == glas.VratiIDStranke()).OduzmiGlas(new List<string>());
+                    break;
+                case TipGlasa.STRANKA_KANDIDATI:
+                    stranke.Find(s => s.vratiIdStranke() == glas.VratiIDStranke()).OduzmiGlas(glas.VratiIDKandidata());
+                    break;
+                case TipGlasa.NEZAVISNI_KANDIDAT:
+                    kandidati.Find(kandidat => kandidat.dajJIK() == glas.VratiIDKandidata()[0]).OduzmiGlas();
                     break;
             }
 

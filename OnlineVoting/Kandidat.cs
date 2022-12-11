@@ -103,6 +103,12 @@ namespace OnlineVoting
             BrojGlasova++;
         }
 
+        //za potrebe funkcionalnosti 5 dodao Faruk S 
+        public void OduzmiGlas() 
+        { 
+            BrojGlasova--;
+        }
+
         public int VratiBrojGlasova()
         {
             return BrojGlasova;

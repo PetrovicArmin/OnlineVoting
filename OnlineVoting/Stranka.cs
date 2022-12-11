@@ -74,6 +74,22 @@ namespace OnlineVoting
             });
         }
 
+        //za potrebe funk 5 dodao Faruk S
+        public void OduzmiGlas(List<string> kandidatiStranke)
+        {
+            BrojGlasova--;
+            if (kandidatiStranke.Count == 0)
+            {
+                clanovi[0].OduzmiGlas();
+                return;
+            }
+
+            kandidatiStranke.ForEach(id =>
+            {
+                clanovi.Find(clan => clan.dajJIK() == id).OduzmiGlas();
+            });
+        }
+
         public int GetBrojGlasova()
         {
             return BrojGlasova;
