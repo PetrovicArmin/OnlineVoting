@@ -51,7 +51,7 @@ namespace OnlineVotingTests
                     new object[] {"      ", "Nekic", "Negdje", "21.02.2001", "231K244", 2102001123456, "Ime, prezime i adresa ne smiju biti prazni"},
                     new object[] {"Mujo", "Mujic", "", "21.02.2001", "131K224", 2102001123456, "Ime, prezime i adresa ne smiju biti prazni"},
                     new object[] {"Mujo", "    ", "Zmaja od Bosne", "21.02.2001", "231K224", 2102001123456, "Ime, prezime i adresa ne smiju biti prazni" },
-                    new object[] {"Mujo", "Mujic", "Zmaja od Bosne", "21.02.2001", "1231K224", 2102001123456, "Broj lične karte mora biti u formatu 9999A9999"},
+                    new object[] {"Mujo", "Mujic", "Zmaja od Bosne", "21.02.2001", "1231K224", 2102001123456, "Broj lične karte mora biti u formatu 999A999"},
                     new object[] {"Mujo", "Mujic", "Zmaja od Bosne", "21.02.2011", "231K224", 2102001123456, "Glasač mora biti punoljetan" },
                     new object[] {"Mujo", "Mujic", "Zmaja od Bosne", "21.02.2031", "231K224", 2102001123456, "Datum rođenja ne može biti u budučnosti" },
                     new object[] {"Mujo", "Mujic221", "Zmaja od Bosne", "21.02.2001", "231K224", 2102001123456, "Ime i prezime smiju sadržavati samo slova i crtice" },
