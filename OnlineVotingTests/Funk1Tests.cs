@@ -9,8 +9,8 @@ namespace OnlineVotingTests
     [TestClass]
     public class Funk1Tests
     {
-        //private Osoba? osoba = new Osoba("Neko", "Nekic", "Negdje", "21.02.2001", "1234567890", 210200112345);
-
+        // Uradio: Imširović Velid, 18913
+        // Za ovu funkcionalnost dodana je funkcija u klasi Osoba: validiraj()
         #region Testiranje validacije - izuzeci
 
         [TestMethod]
@@ -40,6 +40,20 @@ namespace OnlineVotingTests
         {
             Osoba osoba = new Osoba("Velid", "Imširović", "Bugojno", "31.08.2009", "214K221", 31080091);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void KreiranjeOsobe_DugMatični_BacanjeIzuzetka()
+        {
+            Osoba osoba = new Osoba("Velid", "Imširović", "Bugojno", "31.08.2009", "214K221", 310800923455321);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void KreiranjeOsobe_NeispravanPrviDioMatičnog_BacanjeIzuzetka()
+        {
+            Osoba osoba = new Osoba("Velid", "Imširović", "Bugojno", "31.08.2009", "214K221", 3108009123451);
+        }
         #endregion
         #region Inline testiranje - provjera izuzetaka
         static IEnumerable<object[]> Neispravni
@@ -58,6 +72,7 @@ namespace OnlineVotingTests
                     new object[] {"A", "Hoc", "Zmaja od Bosne", "21.02.2001", "131K224", 2102001123456, "Ime mora biti između 2 i 40 karaktera" },
                     new object[] {"Asddeeeeeeekjlkivjaksdlejdkslvajedkalejvkaje", "Hoc", "Zmaja od Bosne", "21.02.2001", "231K224", 2102001123456, "Ime mora biti između 2 i 40 karaktera" },
                     new object[] {"Asddeeeeeeekjlk", "Ho", "Zmaja od Bosne", "21.02.2001", "231K224", 2102001123456, "Prezime mora biti između 3 i 50 karaktera" },
+                    new object[] {"Velid", "Imširović", "Bugojno", "31.08.2001", "214K221", 3108009123451, "Matični broj nije validan" }
                 };
             }
         }
@@ -131,6 +146,21 @@ namespace OnlineVotingTests
             Osoba osoba = new Osoba("Ed", "Mujićnekićgromdrvostablosjekirapticarugalica", "Negdje daleko bb", "11.11.1991", "889J988", 1111991253321);
         }
         #endregion
+        #region Testiranje JIK
+        [TestMethod]
+        public void ValidirajJIK_JIKIspravan()
+        {
+            Osoba osoba = new Osoba("Ed", "Mujićnekićgromdrvostablosjekirapticarugalica", "Negdje daleko bb", "11.11.1991", "889J988", 1111991253321);
+            Assert.IsTrue(osoba.ValidirajJIK("EdMuNe118811"));
+        }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ValidirajJIK_JIKNijeIspravan()
+        {
+            Osoba osoba = new Osoba("Ed", "Mujićnekićgromdrvostablosjekirapticarugalica", "Negdje daleko bb", "11.11.1991", "889J988", 1111991253321);
+            Assert.IsTrue(osoba.ValidirajJIK("EdMiNe118811"));
+        }
+        #endregion
     }
 }
