@@ -70,8 +70,8 @@ namespace OnlineVoting
                 throw new ArgumentException("Datum rođenja ne može biti u budučnosti");
             if (dob.AddYears(18) > DateTime.Now)
                 throw new ArgumentException("Glasač mora biti punoljetan");
-            if (!Regex.IsMatch(brojLicneKarte, @"^\d{4}[EJKMT]\d{4}$"))
-                throw new ArgumentException("Broj lične karte mora biti u formatu 9999A9999");
+            if (!Regex.IsMatch(brojLicneKarte, @"^\d{3}[EJKMT]\d{3}$"))
+                throw new ArgumentException("Broj lične karte mora biti u formatu 999A999");
             if (maticniBroj.ToString().Substring(0, 7) != prviDioMaticnog || maticniBroj.ToString().Count() != 13)
                 throw new ArgumentException("Matični broj nije validan");
             String jikOcekivani = "";
@@ -80,7 +80,8 @@ namespace OnlineVoting
                 brojLicneKarte.Substring(0, 2) + maticniBroj.ToString().Substring(0, 2);
             if (jikOcekivani != jik)
                 throw new ArgumentException("JIK nije ispravno generisan");
-
+            return true;
+        }
         //zadatak 2 zadaća 5
         public bool VjerodostojnostGlasaca(IProvjera sigurnosnaProvjera)
         {

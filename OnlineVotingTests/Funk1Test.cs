@@ -31,14 +31,14 @@ namespace OnlineVotingTests
         [ExpectedException(typeof(ArgumentException))]
         public void KreiranjeOsobe_RodjendanUBuducnosti_BacanjeIzuzetka()
         {
-            Osoba osoba = new Osoba("Velid", "Imširović", "Bugojno", "31.08.2029", "2214K2251", 3108029165423);
+            Osoba osoba = new Osoba("Velid", "Imširović", "Bugojno", "31.08.2029", "214K251", 3108029165423);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void KreiranjeOsobe_KratakMatični_BacanjeIzuzetka()
         {
-            Osoba osoba = new Osoba("Velid", "Imširović", "Bugojno", "31.08.2009", "2214K2251", 31080091);
+            Osoba osoba = new Osoba("Velid", "Imširović", "Bugojno", "31.08.2009", "214K221", 31080091);
         }
         #endregion
         #region Inline testiranje - provjera izuzetaka
@@ -48,16 +48,16 @@ namespace OnlineVotingTests
             {
                 return new[]
                 {
-                    new object[] {"      ", "Nekic", "Negdje", "21.02.2001", "1231K2244", 2102001123456, "Ime, prezime i adresa ne smiju biti prazni"},
-                    new object[] {"Mujo", "Mujic", "", "21.02.2001", "1231K2244", 2102001123456, "Ime, prezime i adresa ne smiju biti prazni"},
-                    new object[] {"Mujo", "    ", "Zmaja od Bosne", "21.02.2001", "1231K2244", 2102001123456, "Ime, prezime i adresa ne smiju biti prazni" },
-                    new object[] {"Mujo", "Mujic", "Zmaja od Bosne", "21.02.2001", "11231K2244", 2102001123456, "Broj lične karte mora biti u formatu 9999A9999"},
-                    new object[] {"Mujo", "Mujic", "Zmaja od Bosne", "21.02.2011", "1231K2244", 2102001123456, "Glasač mora biti punoljetan" },
-                    new object[] {"Mujo", "Mujic", "Zmaja od Bosne", "21.02.2031", "1231K2244", 2102001123456, "Datum rođenja ne može biti u budučnosti" },
-                    new object[] {"Mujo", "Mujic221", "Zmaja od Bosne", "21.02.2001", "1231K2244", 2102001123456, "Ime i prezime smiju sadržavati samo slova i crtice" },
-                    new object[] {"A", "Hoc", "Zmaja od Bosne", "21.02.2001", "1231K2244", 2102001123456, "Ime mora biti između 2 i 40 karaktera" },
-                    new object[] {"Asddeeeeeeekjlkivjaksdlejdkslvajedkalejvkaje", "Hoc", "Zmaja od Bosne", "21.02.2001", "1231K2244", 2102001123456, "Ime mora biti između 2 i 40 karaktera" },
-                    new object[] {"Asddeeeeeeekjlk", "Ho", "Zmaja od Bosne", "21.02.2001", "1231K2244", 2102001123456, "Prezime mora biti između 3 i 50 karaktera" },
+                    new object[] {"      ", "Nekic", "Negdje", "21.02.2001", "231K244", 2102001123456, "Ime, prezime i adresa ne smiju biti prazni"},
+                    new object[] {"Mujo", "Mujic", "", "21.02.2001", "131K224", 2102001123456, "Ime, prezime i adresa ne smiju biti prazni"},
+                    new object[] {"Mujo", "    ", "Zmaja od Bosne", "21.02.2001", "231K224", 2102001123456, "Ime, prezime i adresa ne smiju biti prazni" },
+                    new object[] {"Mujo", "Mujic", "Zmaja od Bosne", "21.02.2001", "1231K224", 2102001123456, "Broj lične karte mora biti u formatu 9999A9999"},
+                    new object[] {"Mujo", "Mujic", "Zmaja od Bosne", "21.02.2011", "231K224", 2102001123456, "Glasač mora biti punoljetan" },
+                    new object[] {"Mujo", "Mujic", "Zmaja od Bosne", "21.02.2031", "231K224", 2102001123456, "Datum rođenja ne može biti u budučnosti" },
+                    new object[] {"Mujo", "Mujic221", "Zmaja od Bosne", "21.02.2001", "231K224", 2102001123456, "Ime i prezime smiju sadržavati samo slova i crtice" },
+                    new object[] {"A", "Hoc", "Zmaja od Bosne", "21.02.2001", "131K224", 2102001123456, "Ime mora biti između 2 i 40 karaktera" },
+                    new object[] {"Asddeeeeeeekjlkivjaksdlejdkslvajedkalejvkaje", "Hoc", "Zmaja od Bosne", "21.02.2001", "231K224", 2102001123456, "Ime mora biti između 2 i 40 karaktera" },
+                    new object[] {"Asddeeeeeeekjlk", "Ho", "Zmaja od Bosne", "21.02.2001", "231K224", 2102001123456, "Prezime mora biti između 3 i 50 karaktera" },
                 };
             }
         }
@@ -121,14 +121,14 @@ namespace OnlineVotingTests
         [TestMethod]
         public void KreiranjeOsobe_PrezimeSaCrticama()
         {
-            Osoba osoba = new Osoba("Mujo", "Mujić-Nekić", "Zmaja od Bosne", "11.10.1997", "2222J2222", 1110997243543);
+            Osoba osoba = new Osoba("Mujo", "Mujić-Nekić", "Zmaja od Bosne", "11.10.1997", "222J222", 1110997243543);
             // Provjera da li je JIK dobar 
             Assert.AreEqual("MuMuZm112211", osoba.dajJIK());
         }
 
         public void KreiranjeOsobe_KratkoImeDugoPrezime()
         {
-            Osoba osoba = new Osoba("Ed", "Mujićnekićgromdrvostablosjekirapticarugalica", "Negdje daleko bb", "11.11.1991", "8899J9988", 1111991253321);
+            Osoba osoba = new Osoba("Ed", "Mujićnekićgromdrvostablosjekirapticarugalica", "Negdje daleko bb", "11.11.1991", "889J988", 1111991253321);
         }
         #endregion
 
