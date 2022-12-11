@@ -62,7 +62,7 @@ namespace OnlineVotingTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(Exception))]
         public void PonistiGlas_NePostoji()
         {
             izbori.PonistiGlas(osoba2, new Glas(1, new List<Kandidat> { Kandidati.ElementAt(1) }));
@@ -94,7 +94,7 @@ namespace OnlineVotingTests
     }
 
     [TestMethod]
-    [ExpectedException(typeof(ArgumentException))]
+    [ExpectedException(typeof(Exception))]
     public void DajGlas_Nema()
     {
             pop.DajGlas("bilokakavglasac");
