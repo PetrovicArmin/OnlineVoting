@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace OnlineVotingTests
 {
     
-
     [TestClass]
     public class Zadatak2Tests
     {
@@ -45,4 +44,26 @@ namespace OnlineVotingTests
             Assert.IsTrue(osobe[3].VjerodostojnostGlasaca(fakeProvjera));
         }
     }
- }
+
+    //Zamjenski objekat u svrhu TDD-a: Fake, jer ima kompleksni atribut koji simulira bazu podataka onih koji su glasali
+    public class FakeProvjera : IProvjera
+    {
+        List<String> JIKoviOnihKojiSuGlasali = new List<String>();
+
+        public FakeProvjera()
+        {
+        }
+
+        public void PopuniJIKove(List<string> jiks)
+        {
+            JIKoviOnihKojiSuGlasali = jiks;
+        }
+
+        public bool DaLiJeVecGlasao(string jik)
+        {
+            if (JIKoviOnihKojiSuGlasali.Contains(jik))
+                return true;
+            return false;
+        }
+    }
+}
