@@ -50,6 +50,7 @@ namespace OnlineVoting
             return this.dajJIK() == o.dajJIK();
         }
 
+
         private bool validiraj(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {
             string prviDioMaticnog = datumRodjenja.Substring(0, 2) + datumRodjenja.Substring(3, 2) + datumRodjenja.Substring(7, 3);
@@ -79,6 +80,13 @@ namespace OnlineVoting
                 brojLicneKarte.Substring(0, 2) + maticniBroj.ToString().Substring(0, 2);
             if (jikOcekivani != jik)
                 throw new ArgumentException("JIK nije ispravno generisan");
+
+        //zadatak 2 zadaća 5
+        public bool VjerodostojnostGlasaca(IProvjera sigurnosnaProvjera)
+        {
+            if (sigurnosnaProvjera.DaLiJeVecGlasao(JIK))
+                throw new Exception("Glasač je već izvršio glasanje!");
+
             return true;
         }
     }
