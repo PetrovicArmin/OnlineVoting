@@ -17,6 +17,7 @@ namespace OnlineVoting
             this.glasaci = glasaci;
         }
 
+
         private Populacija() { }
 
         static public Populacija DajPopulaciju()
@@ -37,8 +38,18 @@ namespace OnlineVoting
             return glasaci;
         }
 
-        //za potrebe funk 5 modifikovao Faruk
-        public void DodajGlasaca(string jik, Glas glas)
+        public void setGlasovi(List<Glas> glasovii)
+        {
+            glasovi = glasovii;
+        }
+
+        public List<Glas> getGlasovi()
+        {
+            return glasovi;
+        }
+
+//za potrebe funk 5 modifikovao Faruk
+public void DodajGlasaca(string jik, Glas glas)
         {
             glasaci.Add(jik);
             glasovi.Add(glas);
@@ -48,6 +59,7 @@ namespace OnlineVoting
         public Glas DajGlas(string jik)
         {
             int index = glasaci.FindIndex(a => a == jik);
+            if (index < 0) throw new Exception("Glasac ne postoji!");
             return glasovi.ElementAt(index);
         }
 
@@ -55,6 +67,7 @@ namespace OnlineVoting
         public void UkloniGlasaca(string jik)
         {
             int index = glasaci.FindIndex(a => a == jik);
+            if (index < 0) return;
             glasaci.RemoveAt(index);
             glasovi.RemoveAt(index);
         }
