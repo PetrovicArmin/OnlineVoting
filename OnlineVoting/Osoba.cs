@@ -47,5 +47,13 @@ namespace OnlineVoting
             if (o == null) return false;
             return this.dajJIK() == o.dajJIK();
         }
+
+        //zadatak 2 zadaća 5
+        public bool VjerodostojnostGlasaca(IProvjera sigurnosnaProvjera)
+        {
+            if (sigurnosnaProvjera.DaLiJeVecGlasao(JIK))
+                throw new Exception("Glasač je već izvršio glasanje!");
+            return true;
+        }
     }
 }
