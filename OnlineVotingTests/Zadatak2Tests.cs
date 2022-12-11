@@ -14,6 +14,7 @@ namespace OnlineVotingTests
         public static List<Osoba> osobe = new List<Osoba>();
         public static FakeProvjera fakeProvjera = new FakeProvjera();
 
+        #region Inicijalizacija podataka
         [ClassInitialize]
         public void InicijalizacijaGlasaca()
         {
@@ -31,6 +32,9 @@ namespace OnlineVotingTests
             fakeProvjera.PopuniJIKove(new List<String> { osobe[0].dajJIK(), osobe[1].dajJIK(), osobe[2].dajJIK() });
         }
 
+        #endregion
+
+        #region Testovi vjerodostojnosti glasača pomoću zamjenskog objekta
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void Vjerodostojnost_VecGlasao_BacanjeIzuzetka()
@@ -43,8 +47,11 @@ namespace OnlineVotingTests
         {
             Assert.IsTrue(osobe[3].VjerodostojnostGlasaca(fakeProvjera));
         }
+
+        #endregion
     }
 
+    #region Klasa zamjenskog objekta
     //Zamjenski objekat u svrhu TDD-a: Fake, jer ima kompleksni atribut koji simulira bazu podataka onih koji su glasali
     public class FakeProvjera : IProvjera
     {
@@ -66,4 +73,6 @@ namespace OnlineVotingTests
             return false;
         }
     }
+
+    #endregion
 }
