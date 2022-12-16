@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OnlineVoting
 {
-    
+
     internal class Izbori
     {
         public static List<Stranka> stranke = new List<Stranka>();
@@ -158,6 +154,12 @@ namespace OnlineVoting
         public int DajUkupneGlasove()
         {
             return ukupnoGlasova - nevazecihGlasova;
+        }
+
+        // za potrebe funkc 5 dodao Faruk Sahat
+        public int DajNevazeceGlasove()
+        {
+            return nevazecihGlasova;
         }
 
     }

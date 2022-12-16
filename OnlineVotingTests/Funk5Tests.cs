@@ -15,8 +15,9 @@ namespace OnlineVotingTests
         private List<Kandidat>? Kandidati;
         private Stranka? stranka;
         private Populacija pop;
-        private Osoba? osoba1 = new Osoba("Neko", "Nekic", "Negdje", "21.02.2001", "123J123", 2102001123456);
-        private Osoba? osoba2 = new Osoba("Drugi", "Neko", "Drugdje", "22.01.2001", "321J321", 2201001123456);
+        private Kandidat nezavisni;
+        private Osoba? osoba1 = new Osoba("Neko", "Nekic", "Negdje", "13.12.1992", "999K999", 1312992252342);
+        private Osoba? osoba2 = new Osoba("Drugi", "Neko", "Drugdje", "14.12.1992", "888M888", 1412992252341);
         private Izbori izbori = Izbori.DajIzbore();
 
         [TestInitialize]
@@ -28,6 +29,7 @@ namespace OnlineVotingTests
                 new Kandidat("Haso", "Hasić", "Hendek bb", "12.12.1992", "888M888", 1212992252341),
                 new Kandidat("Josip", "Josipović", "Adresa", "14.11.1989", "111E111", 1411989888888)
             };
+            nezavisni = new Kandidat("Nezavisni", "Kandidat", "Hendek bb", "12.12.1992", "999K999", 1212992252342);
             stranka = new Stranka(Kandidati, 1);
             Izbori.stranke = new List<Stranka> { stranka };
             Izbori.kandidati = Kandidati;
@@ -55,14 +57,33 @@ namespace OnlineVotingTests
 
         #endregion
 
-        #region Testiranje funkcionalnosti - metoda PonistiGlas
-
+        #region Testiranje funkcionalnosti - metoda PonistiGlas 
+        //nalazi se u Izbori.cs
         [TestMethod]
-        public void PonistiGlas_Postoji()
+        public void PonistiGlas_Nevazeci()
+        {
+            Glas nevazeci = new Glas(0, new List<Kandidat>());
+            izbori.ProcesirajGlas(osoba1, nevazeci);
+            Assert.AreEqual(izbori.DajNevazeceGlasove(), 1);
+            pop.DodajGlasaca(osoba1.dajJIK(), nevazeci);
+            izbori.PonistiGlas(osoba1, nevazeci);
+            Assert.AreEqual(izbori.DajNevazeceGlasove(), 0);
+        }
+        [TestMethod]
+        public void PonistiGlas_Stranka()
         {
 
         }
+        [TestMethod]
+        public void PonistiGlas_Nezavisni()
+        {
 
+        }
+        [TestMethod]
+        public void PonistiGlas_StrankaKand()
+        {
+
+        }
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void PonistiGlas_NePostoji()
@@ -146,8 +167,27 @@ namespace OnlineVotingTests
             stranka.DodajGlas(new List<string> { });
             Assert.AreEqual(stranka.GetBrojGlasova(), 1);
             Assert.AreEqual(stranka.VratiClanove().ElementAt(0).VratiBrojGlasova(), 1);
+            stranka.OduzmiGlas(new List<string> { });
+            Assert.AreEqual(stranka.GetBrojGlasova(), 0);
+            Assert.AreEqual(stranka.VratiClanove().ElementAt(0).VratiBrojGlasova(), 0);
+
+        }
+        [TestMethod]
+        public void OduzmiGlas_KandidatiStranke()
+        {
+            Assert.AreEqual(stranka.GetBrojGlasova(), 0);
+            stranka.DodajGlas(new List<string> { "MuMuHe129912", "HaHaHe128812" });
+            Assert.AreEqual(stranka.GetBrojGlasova(), 1);
+            Assert.AreEqual(stranka.VratiClanove().ElementAt(0).VratiBrojGlasova(), 1);
+            Assert.AreEqual(stranka.VratiClanove().ElementAt(1).VratiBrojGlasova(), 1);
+            stranka.OduzmiGlas(new List<string> { "MuMuHe129912", "HaHaHe128812" });
+            Assert.AreEqual(stranka.GetBrojGlasova(), 0);
+            Assert.AreEqual(stranka.VratiClanove().ElementAt(0).VratiBrojGlasova(), 0);
+            Assert.AreEqual(stranka.VratiClanove().ElementAt(1).VratiBrojGlasova(), 0);
+
         }
         #endregion
+
 
         #region Inline testiranje
         static IEnumerable<object[]> Sifre_pogresne
