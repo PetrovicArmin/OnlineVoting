@@ -4,14 +4,14 @@ using System.Globalization;
 
 namespace OnlineVotingTests
 {
-        [TestClass]
-        public class Funk5Tests
-        /*
-        Funkcionalnost 5 razvio Faruk Sahat (18839)
-        Implementirana funkcionalnost metodama koje su oznacene komentarima u klasama Populacija i Izbori, te konacni rezultat u mainu koji necemo testirati (Prema odgovorima na pitanja za zadacu 2 - Dio u mainu ne treba biti pokriven testovima)
-        */
+    [TestClass]
+    public class Funk5Tests
+    /*
+    Funkcionalnost 5 razvio Faruk Sahat (18839)
+    Implementirana funkcionalnost metodama koje su oznacene komentarima u klasama Populacija i Izbori, te konacni rezultat u mainu koji necemo testirati (Prema odgovorima na pitanja za zadacu 2 - Dio u mainu ne treba biti pokriven testovima)
+    */
 
-        {
+    {
         private List<Kandidat>? Kandidati;
         private Stranka? stranka;
         private Populacija pop;
@@ -32,7 +32,7 @@ namespace OnlineVotingTests
             Izbori.stranke = new List<Stranka> { stranka };
             Izbori.kandidati = Kandidati;
             pop = Populacija.DajPopulaciju();
-            List<String> glasaci = new List<string> { "glasacA", "glasacB" };   
+            List<String> glasaci = new List<string> { "glasacA", "glasacB" };
             pop.setGlasaci(glasaci);
             List<Glas> glasovi = new List<Glas> { new Glas(1, new List<Kandidat> { Kandidati.ElementAt(1) }), new Glas(1, new List<Kandidat> { Kandidati.ElementAt(1) }) };
             pop.setGlasovi(glasovi);
@@ -60,7 +60,7 @@ namespace OnlineVotingTests
         [TestMethod]
         public void PonistiGlas_Postoji()
         {
-            
+
         }
 
         [TestMethod]
@@ -69,44 +69,44 @@ namespace OnlineVotingTests
         {
             izbori.PonistiGlas(osoba2, new Glas(1, new List<Kandidat> { Kandidati.ElementAt(1) }));
         }
-    #endregion
+        #endregion
 
-    #region Testiranje funkcionalnosti - metoda DodajGlasaca
-    [TestMethod]
-    public void DodajGlasaca()
-    {
-        Assert.IsTrue(pop.getGlasaci().Count==2);
-        Assert.IsTrue(pop.getGlasovi().Count==2);
-        pop.DodajGlasaca("bilokakavJiK", new Glas(1, new List<Kandidat> { Kandidati.ElementAt(1) }));
-        Assert.IsTrue(pop.getGlasaci().Count == 3);
-        Assert.IsTrue(pop.getGlasovi().Count == 3);
+        #region Testiranje funkcionalnosti - metoda DodajGlasaca
+        [TestMethod]
+        public void DodajGlasaca()
+        {
+            Assert.IsTrue(pop.getGlasaci().Count == 2);
+            Assert.IsTrue(pop.getGlasovi().Count == 2);
+            pop.DodajGlasaca("bilokakavJiK", new Glas(1, new List<Kandidat> { Kandidati.ElementAt(1) }));
+            Assert.IsTrue(pop.getGlasaci().Count == 3);
+            Assert.IsTrue(pop.getGlasovi().Count == 3);
             List<Glas> votes = pop.getGlasovi();
             List<string> voters = pop.getGlasaci();
             Assert.IsTrue(voters.ElementAt(2) == "bilokakavJiK");
             Assert.IsTrue(votes.ElementAt(2).VratiIDStranke() == 1);
         }
 
-    #endregion
+        #endregion
 
-    #region Testiranje funkcionalnosti - metoda DajGlas
-    [TestMethod]
-    public void DajGlas_Ima()
-    {
+        #region Testiranje funkcionalnosti - metoda DajGlas
+        [TestMethod]
+        public void DajGlas_Ima()
+        {
             Assert.AreEqual(pop.DajGlas("glasacA").VratiIDStranke(), 1);
-    }
+        }
 
-    [TestMethod]
-    [ExpectedException(typeof(Exception))]
-    public void DajGlas_Nema()
-    {
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void DajGlas_Nema()
+        {
             pop.DajGlas("bilokakavglasac");
-    }
-    #endregion
+        }
+        #endregion
 
-    #region Testiranje funkcionalnosti - metoda UkloniGlasaca
-    [TestMethod]
-    public void UkloniGlasaca_Ima()
-    {
+        #region Testiranje funkcionalnosti - metoda UkloniGlasaca
+        [TestMethod]
+        public void UkloniGlasaca_Ima()
+        {
             Assert.AreEqual(pop.getGlasaci().Count, 2);
             Assert.AreEqual(pop.getGlasovi().Count, 2);
             pop.UkloniGlasaca("glasacA");
@@ -114,16 +114,39 @@ namespace OnlineVotingTests
             Assert.AreEqual(pop.getGlasovi().Count, 1);
         }
 
-    [TestMethod]
-    public void UkloniGlasaca_Nema()
-    {
+        [TestMethod]
+        public void UkloniGlasaca_Nema()
+        {
             Assert.AreEqual(pop.getGlasaci().Count, 2);
             Assert.AreEqual(pop.getGlasovi().Count, 2);
             pop.UkloniGlasaca("nepostojeci");
             Assert.AreEqual(pop.getGlasaci().Count, 2);
             Assert.AreEqual(pop.getGlasovi().Count, 2);
 
-    }
+        }
+        #endregion
+
+        #region Testiranje funkcionalnosti - metoda OduzmiGlas (Kandidat.cs)
+        [TestMethod]
+        public void OduzmiGlas_Kandidat()
+        {
+            Assert.AreEqual(Kandidati.ElementAt(1).VratiBrojGlasova(), 0);
+            Kandidati.ElementAt(1).DodajGlas();
+            Assert.AreEqual(Kandidati.ElementAt(1).VratiBrojGlasova(), 1);
+            Kandidati.ElementAt(1).OduzmiGlas();
+            Assert.AreEqual(Kandidati.ElementAt(1).VratiBrojGlasova(), 0);
+        }
+        #endregion
+
+        #region Testiranje funkcionalnosti - metoda OduzmiGlas (Stranka.cs)
+        [TestMethod]
+        public void OduzmiGlas_BezKandidata()
+        {
+            Assert.AreEqual(stranka.GetBrojGlasova(), 0);
+            stranka.DodajGlas(new List<string> { });
+            Assert.AreEqual(stranka.GetBrojGlasova(), 1);
+            Assert.AreEqual(stranka.VratiClanove().ElementAt(0).VratiBrojGlasova(), 1);
+        }
         #endregion
 
         #region Inline testiranje
@@ -169,7 +192,7 @@ namespace OnlineVotingTests
             Osoba glasac = new Osoba(ime, prezime, adresa, rodjendan, licna, matbr);
             izbori.PonistiGlas(glasac, new Glas(stranka, new List<Kandidat> { Kandidati.ElementAt(pozicija) }));
         }
-        
+
         static IEnumerable<object[]> LoadCSV()
         {
             using (var reader = new StreamReader("Funk5glasaci.csv"))
