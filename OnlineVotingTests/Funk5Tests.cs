@@ -12,7 +12,7 @@ namespace OnlineVotingTests
     */
 
     {
-        private List<Kandidat>? Kandidati;
+        private List<Kandidat>? Kandidati, sviKandidati;
         private Stranka? stranka;
         private Populacija pop;
         private Kandidat nezavisni;
@@ -32,7 +32,9 @@ namespace OnlineVotingTests
             nezavisni = new Kandidat("Nezavisni", "Kandidat", "Hendek bb", "12.12.1992", "999K999", 1212992252342);
             stranka = new Stranka(Kandidati, 1);
             Izbori.stranke = new List<Stranka> { stranka };
-            Izbori.kandidati = Kandidati;
+            sviKandidati = Kandidati;
+            sviKandidati.Add(nezavisni);
+            Izbori.kandidati = sviKandidati;
             pop = Populacija.DajPopulaciju();
             List<String> glasaci = new List<string> { "glasacA", "glasacB" };
             pop.setGlasaci(glasaci);
@@ -57,6 +59,17 @@ namespace OnlineVotingTests
 
         #endregion
 
+        #region Testiranje funkcionalnosti - metoda DajNevazeceGlasove
+        [TestMethod]
+        public void DajNevazeceGlasove_Test()
+        {
+            Glas nevazeci = new Glas(0, new List<Kandidat>());
+            izbori.ProcesirajGlas(osoba1, nevazeci);
+            Assert.AreEqual(izbori.DajNevazeceGlasove(), 1);
+        }
+
+        #endregion
+
         #region Testiranje funkcionalnosti - metoda PonistiGlas 
         //nalazi se u Izbori.cs
         [TestMethod]
@@ -64,25 +77,48 @@ namespace OnlineVotingTests
         {
             Glas nevazeci = new Glas(0, new List<Kandidat>());
             izbori.ProcesirajGlas(osoba1, nevazeci);
-            Assert.AreEqual(izbori.DajNevazeceGlasove(), 1);
+            Assert.AreEqual(izbori.DajNevazeceGlasove(), 2); //jedan nevazeci smo vec dodali
             pop.DodajGlasaca(osoba1.dajJIK(), nevazeci);
             izbori.PonistiGlas(osoba1, nevazeci);
-            Assert.AreEqual(izbori.DajNevazeceGlasove(), 0);
+            Assert.AreEqual(izbori.DajNevazeceGlasove(), 1);
         }
         [TestMethod]
         public void PonistiGlas_Stranka()
         {
-
+            Glas samo_stranka = new Glas(1, new List<Kandidat>());
+            izbori.ProcesirajGlas(osoba1, samo_stranka);
+            Assert.AreEqual(izbori.DajUkupneGlasove(), 3); //zajedno sa dva glasa koja smo registrirali na pocetku u inicijalizaciji (oni se nalaze samo u populaciji)
+            Assert.AreEqual(stranka.GetBrojGlasova(), 1);
+            pop.DodajGlasaca(osoba1.dajJIK(), samo_stranka);
+            izbori.PonistiGlas(osoba1, samo_stranka);
+            Assert.AreEqual(izbori.DajUkupneGlasove(), 2);
+            Assert.AreEqual(stranka.GetBrojGlasova(), 0);
         }
         [TestMethod]
         public void PonistiGlas_Nezavisni()
         {
-
+            Glas samostalni = new Glas(0, new List<Kandidat> { nezavisni });
+            izbori.ProcesirajGlas(osoba1, samostalni);
+            Assert.AreEqual(izbori.DajUkupneGlasove(), 3); //zajedno sa dva glasa koja smo registrirali na pocetku u inicijalizaciji (oni se nalaze samo u populaciji)
+            Assert.AreEqual(nezavisni.VratiBrojGlasova(), 1);
+            pop.DodajGlasaca(osoba1.dajJIK(), samostalni);
+            izbori.PonistiGlas(osoba1, samostalni);
+            Assert.AreEqual(izbori.DajUkupneGlasove(), 2);
+            Assert.AreEqual(nezavisni.VratiBrojGlasova(), 0);
         }
         [TestMethod]
         public void PonistiGlas_StrankaKand()
         {
-
+            Glas strankaKandidat = new Glas(1, new List<Kandidat> { Kandidati.ElementAt(2) });
+            izbori.ProcesirajGlas(osoba1, strankaKandidat);
+            Assert.AreEqual(izbori.DajUkupneGlasove(), 3); //zajedno sa dva glasa koja smo registrirali na pocetku u inicijalizaciji (oni se nalaze samo u populaciji)
+            Assert.AreEqual(stranka.GetBrojGlasova(), 1);
+            Assert.AreEqual(Kandidati.ElementAt(2).VratiBrojGlasova(), 1);
+            pop.DodajGlasaca(osoba1.dajJIK(), strankaKandidat);
+            izbori.PonistiGlas(osoba1, strankaKandidat);
+            Assert.AreEqual(izbori.DajUkupneGlasove(), 2);
+            Assert.AreEqual(stranka.GetBrojGlasova(), 0);
+            Assert.AreEqual(Kandidati.ElementAt(2).VratiBrojGlasova(), 0);
         }
         [TestMethod]
         [ExpectedException(typeof(Exception))]
@@ -146,6 +182,7 @@ namespace OnlineVotingTests
 
         }
         #endregion
+
 
         #region Testiranje funkcionalnosti - metoda OduzmiGlas (Kandidat.cs)
         [TestMethod]
