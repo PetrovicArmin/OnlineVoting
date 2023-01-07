@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("CodeTuningTests")]
 namespace OnlineVoting
 {
     public class Osoba
@@ -51,8 +53,8 @@ namespace OnlineVoting
         }
 
         // Velid
-
-        private bool validiraj(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
+        // stavljena da je public, bila private, da bi se mogla pozvati u testovima za tuning
+        public bool validiraj(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {
             string prviDioMaticnog = datumRodjenja.Substring(0, 2) + datumRodjenja.Substring(3, 2) + datumRodjenja.Substring(7, 3);
             string pattern = @"^([A-Z\u0100-\u017Fa-z\-]+)$";
