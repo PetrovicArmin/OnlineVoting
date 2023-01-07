@@ -57,15 +57,13 @@ namespace OnlineVoting
         private bool validiraj(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {
             string prviDioMaticnog = datumRodjenja.Substring(0, 2) + datumRodjenja.Substring(3, 2) + datumRodjenja.Substring(7, 3);
-            string pattern = @"^([A-Z\u0100-\u017Fa-z\-]+)$";
-            bool samoSlovaICrtice = Regex.IsMatch(ime + prezime, pattern);
             if (ime.Trim(' ') == "" || prezime.Trim(' ') == "" || adresa.Trim(' ') == "")
                 throw new ArgumentException("Ime, prezime i adresa ne smiju biti prazni");
             if (!(ime.Count() >= 2 && ime.Count() <= 40))
                 throw new ArgumentException("Ime mora biti između 2 i 40 karaktera");
             if (!(prezime.Count() >= 3 && prezime.Count() <= 50))
                 throw new ArgumentException("Prezime mora biti između 3 i 50 karaktera");
-            if (!samoSlovaICrtice)
+            if (!Regex.IsMatch(ime + prezime, @"^([A-Z\u0100-\u017Fa-z\-]+)$"))
                 throw new ArgumentException("Ime i prezime smiju sadržavati samo slova i crtice");
             DateTime dob = DateTime.ParseExact(datumRodjenja, "dd.MM.yyyy",
                                        System.Globalization.CultureInfo.InvariantCulture);
