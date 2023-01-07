@@ -10,33 +10,33 @@ namespace OnlineVoting
 
         private static List<Osoba> osobe = new List<Osoba>
         {
-            new Osoba("Faruk", "Šahat", "Negdje Sarajevu", "01.01.2001", "12345667", 0101001126211),
-            new Osoba("Naida", "Pita", "Isto Sarajevo", "02.02.2001", "12345667", 0202001156234),
-            new Osoba("Velid", "Imširović", "Aleja Bosne Srebrene bb", "31.08.2001", "12345667", 0303001156234),
-            new Osoba("Dženana", "Terzić", "Zmaja od Bosne bb", "04.04.2001", "12345667", 0404001156234),
-            new Osoba("Armin", "Petrović", "Aleja Bosne Srebrene bb", "05.05.2001", "12345667", 0505001156234),
-            new Osoba("Mujo", "Mujić", "Hendek bb", "06.06.2001", "12345667", 0606001156234),
+            new Osoba("Faruk", "Šahat", "Negdje Sarajevu", "21.01.2001", "333M333", 2101001126211),
+            new Osoba("Naida", "Pita", "Isto Sarajevo", "12.02.2001", "341T312", 1202001156234),
+            new Osoba("Velid", "Imširović", "Aleja Bosne Srebrene bb", "31.08.2001", "111T111", 3108001154123),
+            new Osoba("Dženana", "Terzić", "Zmaja od Bosne bb", "14.04.2001", "222J222", 1404001156234),
+            new Osoba("Armin", "Petrović", "Aleja Bosne Srebrene bb", "25.05.2001", "871K261", 2505001156234),
+            new Osoba("Mujo", "Mujić", "Hendek bb", "16.06.2001", "123E123", 1606001156234),
         }; // Nek ima nekih random osoba, samo da se ima
 
         private static List<Kandidat> kandidatiA = new List<Kandidat>
         {
-            new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-            new Kandidat("Haso", "Hasić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-            new Kandidat("Josip", "Josipović", "Adresa", "4.11.1989", "1231231231", 2214189271298)
+            new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "678M612", 1212992222645),
+            new Kandidat("Haso", "Hasić", "Hendek bb", "12.12.1992", "323T451", 1212992252341),
+            new Kandidat("Josip", "Josipović", "Adresa", "24.11.1989", "654T545", 2411989541235)
         };
 
         private static List<Kandidat> kandidatiB = new List<Kandidat>
         {
-            new Kandidat("Stipo", "Stipić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-            new Kandidat("Suljo", "Suljić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-            new Kandidat("Suada", "Suadić", "Adresa", "4.11.1989", "1231231231", 2214189271298)
+            new Kandidat("Stipo", "Stipić", "Hendek bb", "12.12.1992", "332T331", 1212992010001),
+            new Kandidat("Suljo", "Suljić", "Hendek bb", "12.12.1992", "112T112", 1212992010211),
+            new Kandidat("Suada", "Suadić", "Adresa", "14.11.1989", "115J551", 1411989578945)
         };
 
         private static List<Kandidat> nezavisni = new List<Kandidat>
         {
-            new Kandidat("Džo", "Bajden", "Amerika", "11.11.1959", "123123123213", 214529384738971),
-            new Kandidat("Sin", "Džin Pin", "Kina", "10.10.1234", "2312312312312", 125354634334123),
-            new Kandidat("Pedro", "Sančez", "Španija", "5.6.1961", "1412512151245", 121982781231)
+            new Kandidat("Džo", "Bajden", "Amerika", "11.11.1959", "889K882", 1111959541232),
+            new Kandidat("Sin", "Džin-Pin", "Kina", "10.10.1234", "112K336", 1010234541235),
+            new Kandidat("Pedro", "Sančez", "Španija", "25.06.1961", "889T998", 2506961452324)
         };
 
         private static Stranka strankaA = new Stranka(kandidatiA, 1);
@@ -56,7 +56,8 @@ namespace OnlineVoting
                 Console.WriteLine("2. Prikaz glasača");
                 Console.WriteLine("3. Prikaz stranki i kandidata");
                 Console.WriteLine("4. Glasaj");
-                Console.WriteLine("5. Ispis trenutnih stanja");
+                Console.WriteLine("5. Poništi glas (administrator)");
+                Console.WriteLine("6. Ispis trenutnih stanja");
                 Console.Write("Unesite opciju: ");
                 opcija = Int32.Parse(Console.ReadLine());
                 switch (opcija)
@@ -72,12 +73,19 @@ namespace OnlineVoting
                         });
                         break;
                     case 3:
-                        Console.WriteLine("Opcija 3");
+                        Console.WriteLine("Ispod su nabrojane stranke koje sudjeluju u izborima:");
+                        ispisStranaka();
+                        Console.WriteLine("Pored njih sudjeluju i nezavisni kandidati:");
+                        nezavisni.ForEach(delegate (Kandidat k)
+                            {
+                                Console.WriteLine(k.OsnovneInformacije());
+                            });
+
                         break;
                     case 4:
                         Console.WriteLine("JIK: ");
                         string jik = Console.ReadLine();
-
+                        string kome = "";
                         Console.WriteLine("1. Nezavisni");
                         Console.WriteLine("2. Stranka i(ili) kandidati");
                         int nacin = Int32.Parse(Console.ReadLine());
@@ -88,8 +96,8 @@ namespace OnlineVoting
                             {
                                 Console.WriteLine(k.OsnovneInformacije());
                             });
-
-                            int izborKandidata = Int32.Parse(Console.ReadLine());
+                            kome= Console.ReadLine();
+                            int izborKandidata = Int32.Parse(kome);
                             g = new Glas(0, new List<Kandidat> { nezavisni.ElementAt(izborKandidata) });
                         }
                         else
@@ -101,6 +109,7 @@ namespace OnlineVoting
 
                             Console.Write("Odaberite kandidate razdvojene (,): ");
                             string odabrani = Console.ReadLine();
+                            kome = odabrani;
                             var kandidati = odabrani.Split(',')?.Select(Int32.Parse)?.ToList();
                             //Console.WriteLine("Broj: " + kandidati.Count() + " - " + stranka.vratiClanove().Count());
                             List<Kandidat> sviKandidati = stranka.VratiClanove();
@@ -118,11 +127,40 @@ namespace OnlineVoting
                         {
                             Console.WriteLine("Greška: " +  e.Message);
                         }
-                        var glasaci = pop.getGlasaci();
-                        glasaci.Add(jik);
-                        pop.setGlasaci(glasaci);
+                        pop.DodajGlasaca(jik, g);
                         break;
                     case 5:
+                        Console.WriteLine("Ova funkcionalnost je dostupna samo administratorima sistema. Molimo unesite šifru:");
+                        int brojac = 0;
+                        string sifra = "";
+                        while (brojac != 3)
+                        {
+                            sifra= Console.ReadLine();
+                            if (izbori.ProvjeraSifre(sifra)) break;
+                            Console.WriteLine("Unesena šifra nije ispravna. Pokušajte ponovno.");
+                            brojac++;
+                        }
+                        if (brojac == 3)
+                        {
+                            Console.WriteLine("Pristup Vam nije dozvoljen. Rad programa se obustavlja.");
+                            opcija = -1;
+                        }
+                        if (opcija == -1) break;
+                        Console.WriteLine("JIK: ");
+                        jik = Console.ReadLine();
+
+                        g = pop.DajGlas(jik);
+                        try
+                        {
+                            izbori.PonistiGlas(prekoJik(jik), g);
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Greška: " + e.Message);
+                        }
+                        pop.UkloniGlasaca(jik);
+                        break;
+                    case 6:
                         Console.WriteLine(izbori.TrenutnoStanje());
                         break;
                 }

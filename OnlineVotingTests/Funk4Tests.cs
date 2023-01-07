@@ -1,6 +1,8 @@
-﻿using OnlineVoting;
+﻿using CsvHelper;
+using OnlineVoting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +24,7 @@ namespace OnlineVotingTests
     {
         private List<Kandidat>? Kandidati;
         private Stranka? stranka;
-        private Osoba? osoba=new Osoba("Neko", "Nekic", "Negdje", "21.02.2001", "1234567890", 210200112345);
+        private Osoba? osoba=new Osoba("Neko", "Nekic", "Negdje", "21.02.2001", "123J123", 2102001123456);
         private Izbori izbori = Izbori.DajIzbore();
 
         [TestInitialize]
@@ -30,9 +32,9 @@ namespace OnlineVotingTests
         {
             Kandidati = new List<Kandidat>
             {
-                new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-                new Kandidat("Haso", "Hasić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-                new Kandidat("Josip", "Josipović", "Adresa", "4.11.1989", "1231231231", 2214189271298)
+                new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "999K999", 1212992252342),
+                    new Kandidat("Haso", "Hasić", "Hendek bb", "12.12.1992", "888M888", 1212992252341),
+                    new Kandidat("Josip", "Josipović", "Adresa", "14.11.1989", "111E111", 1411989888888)
             };
             stranka = new Stranka(Kandidati, 1);
             Izbori.stranke = new List<Stranka> { stranka };
@@ -93,7 +95,7 @@ namespace OnlineVotingTests
         public void DodajURukovodstvo_Ispravno_1GlasZaMuju()
         {
             List<Kandidat> Mujo = new List<Kandidat> {
-                new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "1234678765", 121299225234)
+                new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "999K999", 1212992252342)
             };
             stranka.DodajClanoveURukovodstvo(Mujo);
 
@@ -110,7 +112,7 @@ namespace OnlineVotingTests
         public void UkloniIzRukovodstva_Ispravno_0Glasova()
         {
             List<Kandidat> Mujo = new List<Kandidat> {
-                new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "1234678765", 121299225234)
+                new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "999K999", 1212992252342)
             };
             stranka.DodajClanoveURukovodstvo(Mujo);
 
@@ -136,10 +138,71 @@ namespace OnlineVotingTests
 
 
         #region Inline testiranje
+        static IEnumerable<object[]> Clanovi
+        {
+            get
+            {
+                return new[]
+                {
+                    new object[] {"Mujo", "Mujić", "Hendek bb", "12.12.1992", "999K999", 1212992252342 },
+                    new object[] {"Haso", "Hasić", "Hendek bb", "12.12.1992", "888M888", 1212992252341},
+                    new object[] {"Josip", "Josipović", "Adresa", "14.11.1989", "111E111", 1411989888888}
+                };
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("Clanovi")]
+        public void TestIspisaRukovodstva_SadrziJikClana(string ime, string prezime, string adresa, string datumRodjenja, string brojLicneKarte, long maticniBroj)
+        {
+            Kandidat kandidat = new Kandidat(ime, prezime, adresa, datumRodjenja, brojLicneKarte, maticniBroj);
+            stranka.DodajClanoveURukovodstvo(new List<Kandidat> { kandidat });
+            string ispis = stranka.DajRezultateRukovodstva();
+            StringAssert.Contains(ispis, kandidat.dajJIK());
+        }
+
+        
         #endregion
 
 
         #region CSV testiranje
+        static IEnumerable<object[]> ClanoviCsv
+        {
+            get
+            {
+                return UcitajPodatkeCSV();
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("ClanoviCsv")]
+        public void TestUklanjanjaRukovodstva_NeSadrziJikClana(string ime, string prezime, string adresa, string datumRodjenja, string brojLicneKarte, long maticniBroj)
+        {
+            Kandidat kandidat = new Kandidat(ime, prezime, adresa, datumRodjenja, brojLicneKarte, maticniBroj);
+            stranka.DodajClanoveURukovodstvo(new List<Kandidat> { kandidat });
+            string ispis = stranka.DajRezultateRukovodstva();
+            StringAssert.Contains(ispis, kandidat.dajJIK());
+            stranka.UkloniClanoveIzRukovodstva(new List<Kandidat> { kandidat });
+            ispis = stranka.DajRezultateRukovodstva();
+            StringAssert.EndsWith(ispis, "Kandidati:");
+        }
+
+        static IEnumerable<object[]> UcitajPodatkeCSV()
+        {
+            using (var reader = new StreamReader("Funk4TestsData.csv")) 
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var rows = csv.GetRecords<dynamic>();
+                foreach (var row in rows)
+                {
+                    var values = ((IDictionary<String, Object>)row).Values;
+                    var elements = values.Select(elem => elem.ToString()).ToList();
+                    yield return new object[] { elements[0], elements[1],
+                        elements[2], elements[3], elements[4], long.Parse(elements[5])};
+                }
+            }
+        }
+
         #endregion
 
     }

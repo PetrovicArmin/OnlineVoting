@@ -27,9 +27,9 @@ namespace OnlineVotingTests
         public static void PocetnaInicijalizacijaStalnihPodataka(TestContext context)
         {
             kandidatiA = new List<Kandidat> {
-                new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-                new Kandidat("Haso", "Hasić", "Hendek bb", "12.12.1992", "1234678765", 121299225234),
-                new Kandidat("Josip", "Josipović", "Adresa", "4.11.1989", "1231231231", 2214189271298)
+                new Kandidat("Mujo", "Mujić", "Hendek bb", "12.12.1992", "121K123", 1212992541234),
+                new Kandidat("Haso", "Hasić", "Hendek bb", "12.12.1992", "456M224", 1212992541234),
+                new Kandidat("Josip", "Josipović", "Adresa", "11.11.1989", "777T777", 1111989541231)
             };
             strankaA = new Stranka(kandidatiA, 1);
         }

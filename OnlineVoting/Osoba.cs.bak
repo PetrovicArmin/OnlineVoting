@@ -50,8 +50,7 @@ namespace OnlineVoting
             return this.dajJIK() == o.dajJIK();
         }
 
-        // Velid
-
+<<<<<<< HEAD
         private bool validiraj(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {
             string prviDioMaticnog = datumRodjenja.Substring(0, 2) + datumRodjenja.Substring(3, 2) + datumRodjenja.Substring(7, 3);
@@ -71,26 +70,23 @@ namespace OnlineVoting
                 throw new ArgumentException("Datum rođenja ne može biti u budučnosti");
             if (dob.AddYears(18) > DateTime.Now)
                 throw new ArgumentException("Glasač mora biti punoljetan");
-            if (!Regex.IsMatch(brojLicneKarte, @"^\d{3}[EJKMT]\d{3}$"))
-                throw new ArgumentException("Broj lične karte mora biti u formatu 999A999");
+            if (!Regex.IsMatch(brojLicneKarte, @"^\d{4}[EJKMT]\d{4}$"))
+                throw new ArgumentException("Broj lične karte mora biti u formatu 9999A9999");
             if (maticniBroj.ToString().Substring(0, 7) != prviDioMaticnog || maticniBroj.ToString().Count() != 13)
                 throw new ArgumentException("Matični broj nije validan");
-            return true;
-        }
-
-        public bool ValidirajJIK(string JIK)
-        {
-            if (generisiJIK(this.ime, this.prezime, this.adresa, this.datumRodjenja, this.brojLicneKarte, this.maticniBroj) != JIK)
-                throw new ArgumentException("Neispravan JIK");
-            return true;
-        }
-
+            String jikOcekivani = "";
+            String jik = generisiJIK(ime, prezime, adresa, datumRodjenja, brojLicneKarte, maticniBroj);
+            jikOcekivani = ime.Substring(0, 2) + prezime.Substring(0, 2) + adresa.Substring(0, 2) + datumRodjenja.Substring(0, 2) +
+                brojLicneKarte.Substring(0, 2) + maticniBroj.ToString().Substring(0, 2);
+            if (jikOcekivani != jik)
+                throw new ArgumentException("JIK nije ispravno generisan");
+=======
         //zadatak 2 zadaća 5
         public bool VjerodostojnostGlasaca(IProvjera sigurnosnaProvjera)
         {
             if (sigurnosnaProvjera.DaLiJeVecGlasao(JIK))
                 throw new Exception("Glasač je već izvršio glasanje!");
-
+>>>>>>> master
             return true;
         }
     }

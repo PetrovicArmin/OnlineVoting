@@ -74,24 +74,34 @@ namespace OnlineVoting
             });
         }
 
-        // dodala Naida Pita
+        //za potrebe funk 5 dodao Faruk S
+        public void OduzmiGlas(List<string> kandidatiStranke)
+        {
+            BrojGlasova--;
+            if (kandidatiStranke.Count == 0)
+            {
+                Clanovi[0].OduzmiGlas();
+                return;
+            }
+
+            kandidatiStranke.ForEach(id =>
+            {
+                Clanovi.Find(clan => clan.dajJIK() == id).OduzmiGlas();
+            });
+        }
+
         public int GetBrojGlasova()
         {
             return BrojGlasova;
         }
-
-        // dodala Naida Pita
-<<<<<<< HEAD
+        
         private int DajBrojMandata()
-=======
-        public void postaviBrojGlasova(int broj)
         {
             BrojGlasova = broj;
         }
         
         // uradila Naida Pita
         private int dajBrojMandata()
->>>>>>> master
         {
             int brojMandata = 0;
             for (int i = 0; i < Clanovi.Count; i++)
@@ -105,50 +115,13 @@ namespace OnlineVoting
         }
 
         // dodala Naida Pita
-<<<<<<< HEAD
         public void NadjiMandatlije()
-=======
-        public void nadjiMandatlije()
->>>>>>> master
         {
             for (int i = 0; i < Clanovi.Count; i++)
             {
                 if (Clanovi[i].VratiBrojGlasova() >= 0.2 * GetBrojGlasova())
                 {
                     ClanoviSaMandatom.Add(Clanovi[i]);
-<<<<<<< HEAD
-                }
-            }
-        }
-
-
-        // FUNKCIONALNOST 3 Naida Pita
-        public string PrikaziRezultate(int ukupniBrojGlasova)
-        {
-            if(ukupniBrojGlasova < GetBrojGlasova())
-            {
-                throw new Exception("Broj glasova stranke je veći od broja ukupnih glasova!");
-            }
-            string ispis = "";
-            ispis += "\nStranka " + id.ToString() + "\n" + "Broj glasova: " + GetBrojGlasova().ToString() + "\n" + "Postotak glasova: ";
-            ispis += Math.Round((Decimal)((double)GetBrojGlasova() / ukupniBrojGlasova * 100),2).ToString() + "%\n";
-            ispis += "Broj članova sa mandatima: " + DajBrojMandata() + "\n";
-            if (DajBrojMandata() != 0)
-            {
-                ispis += "Članovi sa mandatom: \n";
-                for (int i = 0; i < ClanoviSaMandatom.Count; i++)
-                {
-                    if (ClanoviSaMandatom.Count != 0)
-                    {
-                        ispis += i + 1 + ". " + ClanoviSaMandatom[i].OsnovneInformacije() + ", broj glasova " + ClanoviSaMandatom[i].VratiBrojGlasova().ToString();
-                        ispis += ", postotak glasova " + Math.Round((Decimal)((double)ClanoviSaMandatom[i].VratiBrojGlasova() / GetBrojGlasova() * 100), 2).ToString() + "%.";
-                        if (i != ClanoviSaMandatom.Count - 1)
-                            ispis += "\n";
-                    }
-                }
-            }
-            else ispis += "Nema članova sa mandatom.";
-=======
                 }
             }
         }
@@ -169,15 +142,16 @@ namespace OnlineVoting
                 ispis += "Članovi sa mandatom: \n";
                 for (int i = 0; i < ClanoviSaMandatom.Count; i++)
                 {
-                    ispis += i+1 + ". " + ClanoviSaMandatom[i].OsnovneInformacije() + ", broj glasova " + ClanoviSaMandatom[i].VratiBrojGlasova().ToString();
-                    ispis += ", postotak glasova " + Math.Round((Decimal)((double)ClanoviSaMandatom[i].VratiBrojGlasova() / (double)GetBrojGlasova() * 100), 2).ToString() + "%.";
-                    if (i != ClanoviSaMandatom.Count - 1)
-                        ispis += "\n";
+                    if (ClanoviSaMandatom.Count != 0)
+                    {
+                        ispis += i + 1 + ". " + ClanoviSaMandatom[i].OsnovneInformacije() + ", broj glasova " + ClanoviSaMandatom[i].VratiBrojGlasova().ToString();
+                        ispis += ", postotak glasova " + Math.Round((Decimal)((double)ClanoviSaMandatom[i].VratiBrojGlasova() / GetBrojGlasova() * 100), 2).ToString() + "%.";
+                        if (i != ClanoviSaMandatom.Count - 1)
+                            ispis += "\n";
+                    }
                 }
             }
-            else
-                ispis += "Nema članova sa mandatom.\n";
->>>>>>> master
+            else ispis += "Nema članova sa mandatom.";
             return ispis;
         }
 
@@ -204,7 +178,6 @@ namespace OnlineVoting
             return ispis;
         }
 
-<<<<<<< HEAD
         public void ResetujClanoveSaMandatom()
         {
             ClanoviSaMandatom.Clear();
@@ -214,7 +187,5 @@ namespace OnlineVoting
         {
             BrojGlasova = broj;
         }
-=======
->>>>>>> master
     }
 }
