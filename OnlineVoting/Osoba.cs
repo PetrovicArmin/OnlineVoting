@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -56,24 +57,26 @@ namespace OnlineVoting
 
         private bool validiraj(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {
-            string prviDioMaticnog = datumRodjenja.Substring(0, 2) + datumRodjenja.Substring(3, 2) + datumRodjenja.Substring(7, 3);
             if (ime.Trim(' ') == "" || prezime.Trim(' ') == "" || adresa.Trim(' ') == "")
                 throw new ArgumentException("Ime, prezime i adresa ne smiju biti prazni");
-            if (!(ime.Count() >= 2 && ime.Count() <= 40))
+            if (ime.Length is not (>= 2 and <= 40))
                 throw new ArgumentException("Ime mora biti između 2 i 40 karaktera");
-            if (!(prezime.Count() >= 3 && prezime.Count() <= 50))
+            if (prezime.Length is not (>= 3 and <= 50))
                 throw new ArgumentException("Prezime mora biti između 3 i 50 karaktera");
             if (!Regex.IsMatch(ime + prezime, @"^([A-Z\u0100-\u017Fa-z\-]+)$"))
                 throw new ArgumentException("Ime i prezime smiju sadržavati samo slova i crtice");
             DateTime dob = DateTime.ParseExact(datumRodjenja, "dd.MM.yyyy",
                                        System.Globalization.CultureInfo.InvariantCulture);
-            if (dob > DateTime.Now)
-                throw new ArgumentException("Datum rođenja ne može biti u budučnosti");
-            if (dob.AddYears(18) > DateTime.Now)
+            DateTime sada = DateTime.Now;
+            if (dob > sada)
+                throw new ArgumentException("Datum rođenja ne može biti u budućnosti");
+            if (dob.AddYears(18) > sada)
                 throw new ArgumentException("Glasač mora biti punoljetan");
             if (!Regex.IsMatch(brojLicneKarte, @"^\d{3}[EJKMT]\d{3}$"))
                 throw new ArgumentException("Broj lične karte mora biti u formatu 999A999");
-            if (maticniBroj.ToString().Substring(0, 7) != prviDioMaticnog || maticniBroj.ToString().Count() != 13)
+            string maticni = maticniBroj.ToString();
+            string prviDioMaticnog = datumRodjenja[..2] + datumRodjenja.Substring(3, 2) + datumRodjenja.Substring(7, 3);
+            if (maticni[..7] != prviDioMaticnog || maticni.Length != 13)
                 throw new ArgumentException("Matični broj nije validan");
             return true;
         }
