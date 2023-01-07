@@ -54,7 +54,8 @@ namespace OnlineVoting
 
         // Velid
         // stavljena da je public, bila private, da bi se mogla pozvati u testovima za tuning
-        public bool validiraj(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
+        // stavljena da je static da bi se pozivala sa Osoba.validiraj u tuning test
+        public static bool validiraj(string ime, string prezime, string adresa, String datumRodjenja, string brojLicneKarte, long maticniBroj)
         {
             string prviDioMaticnog = datumRodjenja.Substring(0, 2) + datumRodjenja.Substring(3, 2) + datumRodjenja.Substring(7, 3);
             string pattern = @"^([A-Z\u0100-\u017Fa-z\-]+)$";

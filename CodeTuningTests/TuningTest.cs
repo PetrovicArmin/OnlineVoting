@@ -1,3 +1,5 @@
+using OnlineVoting;
+
 namespace CodeTuningTests
 {
     [TestClass]
@@ -7,6 +9,18 @@ namespace CodeTuningTests
         public void TestTuning()
         {
 
+
+            int x = 0;
+
+            for (int i = 0; i < 500000; i++)
+            {
+                Osoba.validiraj("Ime", "Prezime", "Adresa 14", "29.12.2000", "999E999", 2912000144123);
+            }
+
+            int y = 0;
+
+            Assert.IsTrue(true);
         }
+
     }
 }
