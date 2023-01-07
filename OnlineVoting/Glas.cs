@@ -14,7 +14,7 @@ namespace OnlineVoting
         {
             this.idStranke = stranka;
             this.idKandidata = kandidati.ConvertAll(
-             new Converter<Kandidat, string>(k => k.dajJIK())); 
+             new Converter<Kandidat, string>(k => k.dajJIK()));
         }
 
         public int VratiIDStranke()

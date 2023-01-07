@@ -125,13 +125,13 @@ namespace OnlineVoting
         // FUNKCIONALNOST 3 Naida Pita
         public string PrikaziRezultate(int ukupniBrojGlasova)
         {
-            if(ukupniBrojGlasova < GetBrojGlasova())
+            if (ukupniBrojGlasova < GetBrojGlasova())
             {
                 throw new Exception("Broj glasova stranke je veći od broja ukupnih glasova!");
             }
             string ispis = "";
             ispis += "\nStranka " + id.ToString() + "\n" + "Broj glasova: " + GetBrojGlasova().ToString() + "\n" + "Postotak glasova: ";
-            ispis += Math.Round((Decimal)((double)GetBrojGlasova() / ukupniBrojGlasova * 100),2).ToString() + "%\n";
+            ispis += Math.Round((Decimal)((double)GetBrojGlasova() / ukupniBrojGlasova * 100), 2).ToString() + "%\n";
             ispis += "Broj članova sa mandatima: " + DajBrojMandata() + "\n";
             if (DajBrojMandata() != 0)
             {
