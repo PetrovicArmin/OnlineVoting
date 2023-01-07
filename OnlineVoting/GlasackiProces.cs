@@ -8,7 +8,7 @@ namespace OnlineVoting
 {
     internal class GlasackiProces
     {
-        private Osoba Osoba { get; set; }   
+        private Osoba Osoba { get; set; }
         private Glas Glas { get; set; }
 
         public GlasackiProces(Osoba osoba, Glas glas)
@@ -19,7 +19,7 @@ namespace OnlineVoting
 
         }
 
-        public bool IdentifikujGlasaca()   
+        public bool IdentifikujGlasaca()
         {
             List<string> glasaci = Populacija.DajPopulaciju().getGlasaci();
             if (glasaci.Contains(Osoba.dajJIK()))   //ako je vec glasao, pada na ID fazi
@@ -31,8 +31,6 @@ namespace OnlineVoting
         {
             return TipizirajIVratiGlas().VratiTipGlasa();
         }
-
-
 
         public Glas TipizirajIVratiGlas()
         {
