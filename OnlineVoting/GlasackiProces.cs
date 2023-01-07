@@ -32,6 +32,8 @@ namespace OnlineVoting
             return TipizirajIVratiGlas().VratiTipGlasa();
         }
 
+
+
         public Glas TipizirajIVratiGlas()
         {
             int idStranke = Glas.VratiIDStranke();
@@ -41,7 +43,7 @@ namespace OnlineVoting
             Stranka odabranaStranka = stranke.Find(s => s.VratiIdStranke() == idStranke);
             if (idStranke == 0) //uzmimo da je to ako nije odabrao stranku
             {
-                if (odabraniKandidati!=null && odabraniKandidati.Count == 1 && 
+                if (odabraniKandidati != null && odabraniKandidati.Count == 1 &&
                     nezavisni.Where(k => k.dajJIK() == odabraniKandidati[0]).Any()
                     )
                 {

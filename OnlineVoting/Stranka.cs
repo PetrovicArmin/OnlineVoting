@@ -74,13 +74,24 @@ namespace OnlineVoting
             });
         }
 
+        // dodala Naida Pita
         public int GetBrojGlasova()
         {
             return BrojGlasova;
         }
 
         // dodala Naida Pita
+<<<<<<< HEAD
         private int DajBrojMandata()
+=======
+        public void postaviBrojGlasova(int broj)
+        {
+            BrojGlasova = broj;
+        }
+        
+        // uradila Naida Pita
+        private int dajBrojMandata()
+>>>>>>> master
         {
             int brojMandata = 0;
             for (int i = 0; i < Clanovi.Count; i++)
@@ -94,13 +105,18 @@ namespace OnlineVoting
         }
 
         // dodala Naida Pita
+<<<<<<< HEAD
         public void NadjiMandatlije()
+=======
+        public void nadjiMandatlije()
+>>>>>>> master
         {
             for (int i = 0; i < Clanovi.Count; i++)
             {
                 if (Clanovi[i].VratiBrojGlasova() >= 0.2 * GetBrojGlasova())
                 {
                     ClanoviSaMandatom.Add(Clanovi[i]);
+<<<<<<< HEAD
                 }
             }
         }
@@ -132,7 +148,43 @@ namespace OnlineVoting
                 }
             }
             else ispis += "Nema članova sa mandatom.";
+=======
+                }
+            }
+        }
+
+        // Funkcionalnost 3 uradila: Naida Pita
+        public string prikaziRezultate(int ukupniBrojGlasova)
+        {
+            if(GetBrojGlasova()>ukupniBrojGlasova)
+            {
+                throw new Exception("Broj glasova stranke je veći od ukupnih glasova na izborima!");
+            }
+            string ispis = "";
+            ispis += "\nStranka " + id.ToString() + "\n" + "Broj glasova: " + GetBrojGlasova().ToString() + "\n" + "Postotak glasova: ";
+            ispis += Math.Round((Decimal)((double)GetBrojGlasova() / (double)ukupniBrojGlasova * 100.0),2).ToString() + "%\n";
+            ispis += "Broj članova sa mandatima: " + dajBrojMandata() + "\n";
+            if (dajBrojMandata() != 0)
+            {
+                ispis += "Članovi sa mandatom: \n";
+                for (int i = 0; i < ClanoviSaMandatom.Count; i++)
+                {
+                    ispis += i+1 + ". " + ClanoviSaMandatom[i].OsnovneInformacije() + ", broj glasova " + ClanoviSaMandatom[i].VratiBrojGlasova().ToString();
+                    ispis += ", postotak glasova " + Math.Round((Decimal)((double)ClanoviSaMandatom[i].VratiBrojGlasova() / (double)GetBrojGlasova() * 100), 2).ToString() + "%.";
+                    if (i != ClanoviSaMandatom.Count - 1)
+                        ispis += "\n";
+                }
+            }
+            else
+                ispis += "Nema članova sa mandatom.\n";
+>>>>>>> master
             return ispis;
+        }
+
+        // dodala Naida Pita
+        public void resetujClanoveSaMandatom()
+        {
+            ClanoviSaMandatom.Clear();
         }
 
         public string DajRezultateRukovodstva()
@@ -152,6 +204,7 @@ namespace OnlineVoting
             return ispis;
         }
 
+<<<<<<< HEAD
         public void ResetujClanoveSaMandatom()
         {
             ClanoviSaMandatom.Clear();
@@ -161,5 +214,7 @@ namespace OnlineVoting
         {
             BrojGlasova = broj;
         }
+=======
+>>>>>>> master
     }
 }
